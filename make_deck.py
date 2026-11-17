@@ -63,8 +63,72 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
 .wsc .tool{font-size:12.5px;color:var(--c);font-weight:700}.wsc figcaption .go{margin-left:auto;font-size:13px}
 .adj.ch td{font-size:14px;padding:5px 8px}.adj.ch td:first-child{color:var(--blue)}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
-.pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
+"""
+css += r"""/* ── 版面填滿：內容撐滿上下左右，重心不偏上、不偏左（桌機逐頁模式） ── */
+@media (min-width:901px){
+  .cols,.dev,.ai3,.mech,.exgrid,.two,.pain,.can{max-height:none}
+  /* 步驟頁：左邊步驟平均分布、字放大 */
+  .steps{justify-content:space-between}
+  .steps>li:first-child{margin-top:0}.steps>li:last-child{margin-bottom:0}
+  .steps>li b{font-size:20px}.steps>li p{font-size:16.5px}
+  .stepper .prompt{max-height:46%}
+  /* 第 3 頁 三個狀況 */
+  .pain{flex:1;min-height:0}
+  .pain .box{display:flex;flex-direction:column;justify-content:space-evenly;padding:28px 30px}
+  .pain .q{font-size:34px;line-height:1.5}
+  .pain .a{margin-top:0;font-size:22px;line-height:1.7;padding-top:18px}
+  /* 第 4 頁 議程 */
+  .agenda{flex:1;min-height:0;grid-auto-rows:minmax(0,1fr);align-content:stretch;gap:12px 36px}
+  .agenda a{padding:10px 0}
+  .agenda strong{font-size:23px}.agenda small{font-size:16px}.agenda em{font-size:18px}
+  .learn span{font-size:17px;padding:8px 16px}
+  /* 第 6 頁 四件事 */
+  .can{flex:1;min-height:0}
+  .can .box{display:flex;flex-direction:column;justify-content:space-evenly;padding:24px}
+  .can h3{font-size:30px}.can p{font-size:21px;line-height:1.65}.can .eg{font-size:17.5px;margin-top:0}
+  .noterow .note{font-size:17.5px}
+  /* 第 7、8 頁 ChatGPT／Gemini 兩欄 */
+  .two{flex:1;min-height:0}
+  .two .box{display:flex;flex-direction:column;justify-content:space-between;padding:26px 28px}
+  .two h3{font-size:32px}.two .sub{font-size:16px}
+  .two .bio{font-size:22px;gap:18px;line-height:1.5;flex:1;justify-content:space-evenly}
+  .two .ol{font-size:21px;gap:0;flex:1;justify-content:space-evenly;line-height:1.5}
+  .two .ai3-today{font-size:18px}
+  /* 第 11 頁 五要素 */
+  .formula div{padding:16px 18px}.formula b{font-size:22px}.formula small{font-size:16px}
+  .bad{font-size:18px}
+  /* 第 12 頁 能力階梯 */
+  .dev{flex:1;min-height:0}
+  .dev .ladder{height:100%}
+  .dev .ladder div{flex:1;padding:12px 16px}
+  .dev .ladder div b{font-size:21px}.dev .ladder div small{font-size:16px}
+  .dev>div:last-child{height:100%}
+  .dev>div:last-child>.box{flex:1;justify-content:space-evenly}
+  .dev>div:last-child>.note{font-size:18px}
+  .dev .bio{font-size:21px!important;gap:40px!important;margin-top:24px!important}
+  .dev>div:last-child>.box{justify-content:center!important;padding:28px 30px}
+  .dev>div:last-child>.box h3{font-size:24px}
+  .dev .cols .box p{font-size:16px!important}
+  /* 第 14 頁 調整表 */
+  .slide>.cols>.tbl:has(.adj){display:flex;flex-direction:column}
+  .adj:not(.ch){height:100%}
+  .adj:not(.ch) th{font-size:16px}.adj:not(.ch) td{font-size:19px;padding:14px 12px}
+  /* 案例頁 */
+  .case .who{font-size:21px;line-height:1.75}
+  .case h3{font-size:23px}
+  .case .box{justify-content:space-evenly!important}
+  .case .res{flex:1;justify-content:space-evenly}
+  .case .res li{font-size:19px;line-height:1.55}
+  .case .prompt{font-size:16px}
+  /* 檢查清單、帶走三件事 */
+  .check label{font-size:20px}
+  .slide>.cols>div>.note{font-size:18px}
+  /* 卡片牆（現成工具、資料庫） */
+  .exgrid{flex:1;min-height:0}
+  .ex b{font-size:17px}.ex small{font-size:14px}
+  .ex .q{width:72px;height:72px}.ex .row{grid-template-columns:minmax(0,1fr) 72px}
+}
 """
 head = head.replace("</style>", css + "</style>", 1)
 head = re.sub(r"<title>[^<]*</title>", "<title>讓 AI 想點子做出好玩活動｜長照居家陪伴</title>", head, count=1)
@@ -182,10 +246,10 @@ S.append('''<!-- 工具 -->
   <h2>ChatGPT 和 Gemini：免費版就能用，各有拿手的事</h2>
   <div class="two">
     <div class="box" style="--c:#10A37F"><h3>ChatGPT</h3><span class="sub">chatgpt.com・手機 App「ChatGPT」</span>
-      <ul class="bio" style="font-size:17px;gap:8px"><li><b>想點子、改玩法</b>：講話很像在跟同事討論</li><li><b>做圖</b>：大字牌卡、海報、學習單</li><li><b>出檔案</b>：Word、PDF 直接下載列印</li></ul>
+      <ul class="bio"><li><b>想點子、改玩法</b>：講話很像在跟同事討論</li><li><b>做圖</b>：大字牌卡、海報、學習單</li><li><b>出檔案</b>：Word、PDF 直接下載列印</li></ul>
       <p class="ai3-today" style="margin-top:auto"><b>今天做</b>案例①：撲克牌改玩法＋大字牌卡</p></div>
     <div class="box" style="--c:var(--blue)"><h3>Gemini</h3><span class="sub">gemini.google.com・手機 App「Gemini」</span>
-      <ul class="bio" style="font-size:17px;gap:8px"><li><b>看得懂 YouTube</b>：老歌、影片整理成聊天題目</li><li><b>Canvas 做小遊戲</b>：講清楚玩法，做出能點的遊戲</li><li><b>用 Google 帳號就能登入</b></li></ul>
+      <ul class="bio"><li><b>看得懂 YouTube</b>：老歌、影片整理成聊天題目</li><li><b>Canvas 做小遊戲</b>：講清楚玩法，做出能點的遊戲</li><li><b>用 Google 帳號就能登入</b></li></ul>
       <p class="ai3-today" style="margin-top:auto"><b>今天做</b>案例②：老歌聊天；案例③：專屬小遊戲</p></div>
   </div>
   <div class="note" style="--c:var(--amber)"><b>兩個都會出錯</b><span>規則、數字、健康說法，帶活動前自己玩一次、看一次。哪一個回答不好，就換另一個問。</span></div>
@@ -547,12 +611,12 @@ S.append(f'''<!-- 現成工具 -->
   <div class="eyebrow" style="--c:var(--sky)"><span class="sq"></span>不用從零開始</div>
   <h2>這些都是 AI 做的：手機、平板打開，帶到個案家就能玩</h2>
   {exs([
-    ("one-set-many-games","一題多玩","同一份題目換 27 種玩法，不怕玩膩"),
+    ("slide-game-video","簡報影片生成器","圖文配對、相反動作簡報加音樂，匯出 MP4 給個案看"),
     ("order-different-slides","長者遊戲簡報生成器","找不同、數一數、規律接龍 8 種"),
     ("poker-icebreakers","撲克牌 7 種玩法","看動畫就會玩的撲克牌遊戲"),
     ("pop-song-guess","台灣金曲猜歌","國語台語 300 首，聽前奏猜歌名"),
     ("home-play-library","在家動一動 活動庫","居家版 78 個運動、認知活動"),
-    ("sensory-play-lessons","感覺遊戲教案庫","100 個用家裡東西就能玩的遊戲"),
+    ("old-story-interaction","懷舊溝通資料庫","先讀懂那個年代，再帶長輩聊回去：主題庫、問句百寶箱"),
   ], m=3)}
 </section>
 ''')
