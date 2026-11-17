@@ -351,6 +351,7 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
 .wsc img{width:100%;height:100%;object-fit:contain;display:block}
 .wsc figcaption{display:flex;align-items:center;gap:8px;font-size:15px}.wsc figcaption b{font-size:17px}
 .wsc .tool{font-size:12.5px;color:var(--c);font-weight:700}.wsc figcaption .go{margin-left:auto;font-size:13px}
+.adj.ch td{font-size:14px;padding:5px 8px}.adj.ch td:first-child{color:var(--blue)}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
 .pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
@@ -463,7 +464,7 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
 <section class="slide" data-title="今天的地圖">
   <div class="eyebrow" style="--c:var(--amber)"><span class="sq"></span>今天的地圖　60 分鐘</div>
   <h2>先學會基本操作，再用三個案例做出好玩活動</h2>
-  <nav class="agenda" aria-label="課程地圖"><a href="#s3"><span class="no" style="--c:var(--mag)">0</span><span><strong>開場：你也遇過嗎？</strong><small>三種陪伴困擾，先玩一題</small></span><em>5′</em></a><a href="#s6"><span class="no" style="--c:var(--blue)">1</span><span><strong>認識 AI 活動設計</strong><small>AI 能幫你做的四件事、ChatGPT 和 Gemini 怎麼選</small></span><em>6′</em></a><a href="#s8"><span class="no" style="--c:var(--blue)">2</span><span><strong>基本操作</strong><small>登入、開新對話、用說的、繁體設定、好指令五要素</small></span><em>10′</em></a><a href="#s12"><span class="no" style="--c:var(--green)">3</span><span><strong>好玩的原則</strong><small>能力階梯、撲克牌四種玩法、依狀況調整</small></span><em>7′</em></a><a href="#s15"><span class="no" style="--c:var(--amber)">4</span><span><strong>三個案例＋發布</strong><small>① 撲克牌×視力不好　② 老歌聊天　③ 專屬小遊戲＋分享連結</small></span><em>14′</em></a><a href="#s22"><span class="no" style="--c:var(--green)">5</span><span><strong>做教具：四種學習單</strong><small>連連看、找物品、比大小、配對：ChatGPT 與 Gemini 做法</small></span><em>8′</em></a><a href="#s26"><span class="no" style="--c:var(--amber)">6</span><span><strong>懷舊應用：時光留聲機</strong><small>陪長輩說故事，錄成唱片、印成故事書</small></span><em>6′</em></a><a href="#s28"><span class="no" style="--c:var(--sky)">7</span><span><strong>檢查與資料庫</strong><small>檢查清單、提示詞庫、更多資料庫</small></span><em>4′</em></a></nav>
+  <nav class="agenda" aria-label="課程地圖"><a href="#s3"><span class="no" style="--c:var(--mag)">0</span><span><strong>開場：你也遇過嗎？</strong><small>三種陪伴困擾，先玩一題</small></span><em>5′</em></a><a href="#s6"><span class="no" style="--c:var(--blue)">1</span><span><strong>認識 AI 活動設計</strong><small>AI 能幫你做的四件事、ChatGPT 和 Gemini 怎麼選</small></span><em>6′</em></a><a href="#s8"><span class="no" style="--c:var(--blue)">2</span><span><strong>基本操作</strong><small>登入、開新對話、用說的、繁體設定、好指令五要素</small></span><em>10′</em></a><a href="#s12"><span class="no" style="--c:var(--green)">3</span><span><strong>好玩的原則</strong><small>能力階梯、撲克牌四種玩法、依狀況調整</small></span><em>7′</em></a><a href="#s15"><span class="no" style="--c:var(--amber)">4</span><span><strong>三個案例＋發布</strong><small>① 撲克牌×視力不好　② 老歌聊天　③ 專屬小遊戲＋分享連結</small></span><em>14′</em></a><a href="#s23"><span class="no" style="--c:var(--green)">5</span><span><strong>做教具：四種學習單</strong><small>連連看、找物品、比大小、配對：ChatGPT 與 Gemini 做法</small></span><em>8′</em></a><a href="#s27"><span class="no" style="--c:var(--amber)">6</span><span><strong>懷舊應用：時光留聲機</strong><small>陪長輩說故事，錄成唱片、印成故事書</small></span><em>6′</em></a><a href="#s29"><span class="no" style="--c:var(--sky)">7</span><span><strong>檢查與資料庫</strong><small>檢查清單、提示詞庫、更多資料庫</small></span><em>4′</em></a></nav>
   <div class="learn"><span>上完課你會：認識 AI 工具的基本操作</span><span>用有效指令產出活動設計</span><span>把 AI 用在每天的陪伴</span></div>
 </section>
 <section class="slide" data-title="先玩一下：猜歌、好味島、馬賽克">
@@ -638,24 +639,19 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <div class="box" style="flex:1"><h3>AI 給的點子（回答重點整理）</h3><ol class="res"><li><span><b>大字湊 10</b>：只用 A–9，牌放在深色桌墊上，一次翻 4 張，請阿嬤「當老闆找零錢」湊 10。</span></li><li><span><b>摸牌比大小</b>：把牌換成自製大字卡，兩人各翻一張，大的贏；看不清楚就用說的報數字。</span></li><li><span><b>紅黑分一分</b>：狀況不好時只分紅色、黑色兩堆，成功率高、手也有動到。</span></li><li><span><b>第一句話</b>：「阿嬤，我算錢算不好，妳教我一下，這兩張加起來多少？」</span></li></ol><p class="tagline">每次回答都會不一樣；挑適合的，不適合就追問。</p></div>
-      <div class="note" style="--c:var(--green)"><b>帶的時候</b><span>先玩她會成功的「紅黑分一分」，再進「湊 10」。牌太小？下一頁請 ChatGPT 做 A4 大字數字卡。</span></div>
+      <div class="note" style="--c:var(--green)"><b>帶的時候</b><span>先玩她會成功的「紅黑分一分」，再進「湊 10」。AI 做的牌卡或學習單不滿意？下一頁教你看著圖調整。</span></div>
     </div>
   </div>
 </section>
-<section class="slide" data-title="案例① 做道具：ChatGPT 大字牌卡">
-  <div class="eyebrow" style="--c:var(--amber)"><span class="sq"></span>第四段　案例①　做道具：ChatGPT</div>
-  <h2>做道具：請 ChatGPT 畫大字牌卡、題目卡、學習單</h2>
+<section class="slide" data-title="案例① 做道具：看著圖片調整">
+  <div class="eyebrow" style="--c:#10A37F"><span class="sq"></span>第四段　案例①　做道具：看著圖片調整</div>
+  <h2>圖不滿意？在圖上畫起來，告訴 ChatGPT 要改哪裡</h2>
   <div class="stepper" data-stepper>
-    <ol class="steps">
-      <li data-img="img/ref_hpa_poster.jpg" data-cap="參考海報：國健署「從兒童發展篩檢到聯合評估 家長指南」（只參考版面與配色）"><span class="n">1</span><div><b>找一張版面喜歡的海報</b><p>右側直排大標題、粉彩配色、手繪人物、彩色小標籤、左下「溫馨提醒」。截圖或存下來。</p></div></li>
-      <li data-img="img/q02_prompt.jpg" data-cap="chatgpt.com：上傳參考海報，貼提示詞（參考什麼、不要什麼、我的內容）"><span class="n">2</span><div><b>上傳參考圖，說清楚要參考什麼</b><p>寫出你看到的版面特徵，加一句「不要複製它的文字、QR code 和標誌」，再放進自己的內容。</p></div></li>
-      <li data-img="img/m03_drawing.jpg" data-cap="約 1 分鐘：畫面顯示正在勾勒草圖"><span class="n">3</span><div><b>等它畫</b><p>約 1 分鐘。這段時間可以先想要怎麼檢查內容。</p></div></li>
-      <li data-img="img/q04_poster.jpg" data-cap="實際產出（11/11 實測）：直排標題、彩色標籤、溫馨提醒框都照參考，內容是 ICOPE"><span class="n">4</span><div><b>檢查成品</b><p>版面跟參考海報一樣好讀，內容換成自己的（截圖示範的是一張衛教海報，牌卡、題目卡做法一樣）。逐字看：錯字、數字、說法。</p></div></li>
-      <li data-img="img/q03_viewer.jpg" data-cap="點圖片：標註、擦除、移除背景、調整大小；下方輸入要改什麼"><span class="n">5</span><div><b>小地方用「標註」圈起來改</b><p>點圖片 → 「標註」圈起來說要改什麼。字有錯就圈起來請它改；改不好就直接說「整張重畫，只改這幾個字」。</p></div></li>
-    </ol>
+    <ol class="steps"><li data-img="img/ws/gpt_edit_tools.jpg" data-cap="點一下 ChatGPT 畫好的圖：下方有標註、留言、移除背景、擦除、調整大小"><span class="n">1</span><div><b>點圖片，打開編輯工具</b><p>先看整張圖：哪裡太小、哪個字錯、哪樣東西個案不熟悉。</p></div></li><li data-img="img/ws/gpt_edit_mark.jpg" data-cap="按「標註」，用紅筆在西瓜上畫叉叉，下方打字說要改什麼（11/17 實測）"><span class="n">2</span><div><b>用「標註」把要改的地方畫起來</b><p>畫圈、打叉都可以；再用一句話說清楚「改成什麼、其他不要動」。</p></div></li><li data-img="img/ws/gpt_edit_chat.jpg" data-cap="送出後，ChatGPT 會帶著你畫的記號重新畫一張"><span class="n">3</span><div><b>送出，等它重畫</b><p>約 1 分鐘。原本那張還在，改壞了可以回頭用。</p></div></li><li data-img="img/ws/ws_matching_edit.jpg" data-cap="改好了：西瓜換成芭樂、字也改成「芭樂」，其他都沒動"><span class="n">4</span><div><b>檢查改好的地方</b><p>只看改的那一格對不對；其他格子有沒有被亂改。滿意就下載列印。</p></div></li></ol>
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame" style="background:var(--soft)"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
-      <div class="prompt"><div class="lab">ChatGPT 指令・大字數字卡<button class="copy">複製</button></div>幫我做一張 A4 直式、可以列印的「大字數字卡」：一頁 4 張卡（2×2），數字 1、2、3、4，每張卡中間一個很大的黑色粗體數字（占卡片一半高），下方畫同數量的大圓點，讓視力不好的長輩用數的也可以。白底、黑字、粗外框、卡片之間留裁切線。不要其他裝飾。繁體中文。</div>
+      <div class="prompt"><div class="lab">ChatGPT 指令・看著圖調整<button class="copy">複製</button></div>把我畫紅色叉叉的西瓜換成芭樂，右邊的「西瓜」也改成「芭樂」，其他都不要動。</div>
+      <div class="note" style="--c:#10A37F"><b>常用的調整</b><span>「字再大一倍」「換成阿嬤熟悉的東西」「拿掉背景」「改成 A4 直式」「這一格的圖跟字對不起來，請改成一樣」。</span></div>
     </div>
   </div>
 </section>
@@ -669,24 +665,34 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <div class="box" style="flex:1"><h3>AI 給的點子（回答重點整理）</h3><ol class="res"><li><span><b>暖身</b>：先放他點名的歌，問「這首你以前常聽嗎？」只要點頭就算成功。</span></li><li><span><b>聊天三層</b>：喜不喜歡 → 那時候在哪裡聽 → 那時候你在做什麼工作。</span></li><li><span><b>請他教你</b>：「木工最難的是什麼？」把話題從歌帶到他的拿手事。</span></li><li><span><b>收尾動作</b>：副歌跟著拍手或敲桌子打拍子，動一動再結束。</span></li></ol><p class="tagline">每次回答都會不一樣；挑適合的，不適合就追問。</p></div>
-      <div class="note" style="--c:var(--blue)"><b>帶的時候</b><span>歌名、歌手 AI 可能記錯，先上 YouTube 搜尋確認；聊到難過的事，停下來陪他，不用急著回到活動。</span></div>
+      <div class="note" style="--c:var(--blue)"><b>帶的時候</b><span>下兩頁實作：先收集懷舊頻道，再請 Gemini 讀一支影片。聊到難過的事，停下來陪他，不用急著回到活動。</span></div>
     </div>
   </div>
 </section>
-<section class="slide" data-title="案例② 實作：Gemini 讀 YouTube">
-  <div class="eyebrow" style="--c:var(--blue)"><span class="sq"></span>第四段　案例②　實作：Gemini 讀影片</div>
-  <h2>影片交給 Gemini：貼上 YouTube 網址，整理出聊天題目</h2>
-  <div class="stepper" data-stepper>
-    <ol class="steps">
-      <li data-img="img/yt01_buttons.jpg" data-cap="影片下方工具列：分享旁邊的「提問」（部分影片才有）"><span class="n">1</span><div><b>YouTube 先找「提問」按鈕</b><p>影片下方，分享、下載旁邊。有這顆就能直接在 YouTube 裡問，不用另外開 AI。</p></div></li>
-      <li data-img="img/yt02_panel.jpg" data-cap="右側跳出「問問影片」：生成影片摘要、推薦問題"><span class="n">2</span><div><b>按「生成影片摘要」</b><p>右側跳出對話框，可以點建議問題，也能自己打字問。</p></div></li>
-      <li data-img="img/yt03_summary.jpg" data-cap="摘要附時間碼，點下去直接跳到那一段"><span class="n">3</span><div><b>摘要附時間碼</b><p>點時間碼直接跳到那一段，備課只看需要的片段。</p></div></li>
-      <li data-img="img/yt04_gemini.jpg" data-cap="Gemini（3.1 Pro）：六力每一項都附時間碼，五次坐站、耳語測試都有抓到（11/11 實測）"><span class="n">4</span><div><b>Gemini：貼影片網址就能讀</b><p>逐段整理、每段附時間碼（截圖示範的是衛教影片；老歌 MV、懷舊影片一樣）。Flash 轉圈太久時，改用 Pro 模型重問一次。</p></div></li>
-      <li data-img="img/yt05_chatgpt.jpg" data-cap="ChatGPT：同一支影片「無法取得影片畫面或字幕」，整張表都是「尚無法確認」"><span class="n">5</span><div><b>ChatGPT：讀不到影片內容</b><p>它老實說拿不到畫面與字幕，表格全寫「尚無法確認」。影片的事交給 Gemini。</p><p><b>指令範例：</b>「看這支影片，挑 3 個可以停下來問長輩的畫面，附時間碼和問題。」</p></div></li>
-    </ol>
+<!-- 懷舊頻道資料庫 -->
+<section class="slide" data-title="案例② 實作①：請 Gemini 收集懷舊頻道">
+  <div class="eyebrow" style="--c:var(--blue)"><span class="sq"></span>第四段　案例②　實作①：收集 YouTube 懷舊頻道</div>
+  <h2>先請 Gemini 收集懷舊頻道，做成自己的影片資料庫</h2>
+  <div class="cols" style="--n:2;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:20px">
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
-      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
-      <div class="note" style="--c:var(--blue)"><b>查證：只有國外影片才有摘要？</b><span>不是。官方說明列出台灣、中文（繁體），但只開放<b>部分影片</b>。實測三支台灣衛教影片都有（Premium 帳號）。沒按鈕就把網址丟給 Gemini。</span></div>
+      <figure class="shot" style="margin:0;flex:1;min-height:0"><div class="frame"><img src="img/yt/channels.jpg" alt="Gemini 整理的懷舊頻道表"></div><figcaption><span>Gemini 整理成表格：頻道名稱、主要內容、陪伴活動、網址（11/17 實測）</span></figcaption></figure>
+      <div class="prompt"><div class="lab">Gemini 指令・收集懷舊頻道<button class="copy">複製</button></div>我是居家服務員，要陪長輩看懷舊影片、聊往事。請幫我收集 YouTube 上適合台灣長輩的懷舊頻道（台語老歌、國語老歌、台灣老照片和老影片、早期電視節目、古早味或老街），做成一張表：頻道名稱、主要內容、適合的陪伴活動、頻道網址。只列真的存在、還有在播放的頻道，網址要正確，10 個就好。</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+      <div class="box" style="padding:14px 16px;justify-content:flex-start"><h3 style="font-size:18px">實測結果：10 個頻道網址都打得開</h3>
+        <table class="adj ch"><tr><td>豪記唱片 HCM Music</td><td>台語老歌、那卡西、伴唱帶</td><td><a class="go" href="https://www.youtube.com/@HCMMUSIC" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>滾石唱片 ROCK RECORDS</td><td>70–90 年代國語老歌、民歌</td><td><a class="go" href="https://www.youtube.com/@RockRecordsTaipei" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>LEICO 麗歌唱片</td><td>黑膠時期台語、國語老歌</td><td><a class="go" href="https://www.youtube.com/@leicorecord9198" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>TFAI 國家影視聽中心</td><td>早期新聞片、老台灣影像、台語片</td><td><a class="go" href="https://www.youtube.com/@TWCTFA" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>台灣演義</td><td>台灣歷史、人物、城鎮故事</td><td><a class="go" href="https://www.youtube.com/@FTVTaiwanHistory" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>台視時光機</td><td>台視老連續劇、歌仔戲、綜藝</td><td><a class="go" href="https://www.youtube.com/@TTVClassic" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>華視懷舊頻道</td><td>華視老劇、歌仔戲、短劇</td><td><a class="go" href="https://www.youtube.com/@cts_arch" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>台灣真善美</td><td>老街、古早味、傳統手藝職人</td><td><a class="go" href="https://www.youtube.com/@taiwangooddeeds" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>進擊的台灣</td><td>傳統市場、農漁業、老店故事</td><td><a class="go" href="https://www.youtube.com/@FoodinTaiwan" target="_blank" rel="noopener">開啟</a></td></tr><tr><td>寶島神很大</td><td>廟宇、陣頭、地方習俗</td><td><a class="go" href="https://www.youtube.com/@godBlessBaodao" target="_blank" rel="noopener">開啟</a></td></tr></table></div>
+      <div class="note" style="--c:var(--blue)"><b>一定要點開確認</b><span>AI 偶爾會編出不存在的頻道。每個網址點開看一次，確認還在、內容適合，再存進自己的資料庫（Google 試算表或 LINE 記事本）。</span></div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="案例② 實作②：Gemini 讀影片">
+  <div class="eyebrow" style="--c:var(--blue)"><span class="sq"></span>第四段　案例②　實作②：請 Gemini 讀一支影片</div>
+  <h2>從資料庫挑一支影片，請 Gemini 讀完，整理出停格聊天題</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps"><li data-img="img/yt/video.jpg" data-cap="示範影片：台灣真善美〈布袋傳統手拉麵線〉11 分 40 秒"><span class="n">1</span><div><b>從頻道挑一支影片</b><p>挑個案熟悉的主題：他的家鄉、做過的工作、愛吃的東西。複製影片網址。</p></div></li><li data-img="img/yt/fail.jpg" data-cap="實測：用預設模型，Gemini 回答「無法讀取這支 YouTube 影片」"><span class="n">2</span><div><b>預設模型可能讀不到</b><p>看到「無法觀看」不要放棄，換模型重問一次。</p></div></li><li data-img="img/yt/models.jpg" data-cap="輸入框右邊的模型選單：選「深度研究 3.1 Pro」，開新對話再貼一次"><span class="n">3</span><div><b>換成 Pro 模型，開新對話</b><p>讀影片用 Pro 最穩；每支影片開一個新對話。</p></div></li><li data-img="img/yt/answer.jpg" data-cap="Pro 讀完了：4 個停格畫面，附時間碼、畫面內容、從簡單到回憶的問題"><span class="n">4</span><div><b>拿到停格題目表</b><p>還附一個看完可以一起做的小活動：一起拌一碗古早味麵線。</p></div></li><li data-img="img/yt/check.jpg" data-cap="自己對時間碼：1:00 拉麵線、2:37 曬麵線、7:07 盤麵線、10:32 拌苦茶油，四個都對"><span class="n">5</span><div><b>自己跳到時間碼看一次</b><p>帶之前把每個時間碼點開確認畫面，對了再帶。</p></div></li></ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame" style="background:#000"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      <div class="prompt"><div class="lab">Gemini 指令・讀影片做停格題<button class="copy">複製</button></div>我從「台灣真善美」挑了這支影片：（貼上影片網址）。請看完影片，幫我挑 4 個可以按暫停、問長輩的畫面，做成表格：時間碼、畫面在演什麼、可以問長輩的問題（從簡單到回憶）。最後再給 1 個看完可以一起做的小活動。只根據影片內容，看不到的寫「影片未提及」。</div>
     </div>
   </div>
 </section>

@@ -61,6 +61,7 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
 .wsc img{width:100%;height:100%;object-fit:contain;display:block}
 .wsc figcaption{display:flex;align-items:center;gap:8px;font-size:15px}.wsc figcaption b{font-size:17px}
 .wsc .tool{font-size:12.5px;color:var(--c);font-weight:700}.wsc figcaption .go{margin-left:auto;font-size:13px}
+.adj.ch td{font-size:14px;padding:5px 8px}.adj.ch td:first-child{color:var(--blue)}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
 .pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
@@ -81,6 +82,21 @@ def exs(items, m=3):
     return f'<div class="exgrid" style="--m:{m}">' + "".join(ex(*i) for i in items) + "</div>"
 def A(url, text):
     return f'<a class="go" href="{url}" target="_blank" rel="noopener">{text} ↗</a>'
+def stepper(eyebrow_c, eyebrow, title, h2, steps, right_extra, frame_bg=""):
+    lis = "".join(f'<li data-img="{img}" data-cap="{esc(cap)}"><span class="n">{i+1}</span><div><b>{b}</b><p>{p}</p></div></li>' for i, (img, cap, b, p) in enumerate(steps))
+    return f'''<section class="slide" data-title="{esc(title)}">
+  <div class="eyebrow" style="--c:{eyebrow_c}"><span class="sq"></span>{eyebrow}</div>
+  <h2>{h2}</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps">{lis}</ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"{frame_bg}><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      {right_extra}
+    </div>
+  </div>
+</section>
+'''
+
 def prompt(lab, text):
     return f'<div class="prompt"><div class="lab">{lab}<button class="copy">複製</button></div>{text}</div>'
 
@@ -321,18 +337,23 @@ S.append(case("①", "var(--green)", "案例① 撲克牌×視力不好的阿嬤
      "<b>摸牌比大小</b>：把牌換成自製大字卡，兩人各翻一張，大的贏；看不清楚就用說的報數字。",
      "<b>紅黑分一分</b>：狀況不好時只分紅色、黑色兩堆，成功率高、手也有動到。",
      "<b>第一句話</b>：「阿嬤，我算錢算不好，妳教我一下，這兩張加起來多少？」"],
-    "先玩她會成功的「紅黑分一分」，再進「湊 10」。牌太小？下一頁請 ChatGPT 做 A4 大字數字卡。", plab="ChatGPT 指令・改玩法"))
+    "先玩她會成功的「紅黑分一分」，再進「湊 10」。AI 做的牌卡或學習單不滿意？下一頁教你看著圖調整。", plab="ChatGPT 指令・改玩法"))
 
-S.append(keep("教案⑥ ChatGPT 參考風格做學習單",
-    ("教案設計⑥　紙本：ChatGPT 參考風格", "第四段　案例①　做道具：ChatGPT"),
-    ("<h2>拿一張喜歡的海報當參考，做出同風格的學習單、海報</h2>", "<h2>做道具：請 ChatGPT 畫大字牌卡、題目卡、學習單</h2>"),
-    ("內容換成自己的（示範主題：長者量六力）", "內容換成自己的（截圖示範的是一張衛教海報，牌卡、題目卡做法一樣）"),
-    ("<b>小地方用 ChatGPT 改，大改到 Canva</b>", "<b>小地方用「標註」圈起來改</b>"),
-    ("要改多處文字，下一頁用 Canva 魔法圖層更快。", "字有錯就圈起來請它改；改不好就直接說「整張重畫，只改這幾個字」。"),
-    ('''請參考這張海報的 UI 設計（右側直排大標題、粉彩粉橘配淡藍、手繪線條人物、彩色小標籤標題、左下圓角「溫馨提醒」框），只參考版面與配色，不要複製它的文字、QR code 和標誌。幫我做一張 A4 直式活動海報：右側直排標題「祖孫遊戲日」，副標「一副牌玩一下午」。三個標籤段落：配對：找出一樣的牌；組合：兩張湊成 10；排序：從小排到大。溫馨提醒：輸贏不重要，一起笑最重要。繁體中文、字要大、不要錯字。''',
-     '''幫我做一張 A4 直式、可以列印的「大字數字卡」：一頁 4 張卡（2×2），數字 1、2、3、4，每張卡中間一個很大的黑色粗體數字（占卡片一半高），下方畫同數量的大圓點，讓視力不好的長輩用數的也可以。白底、黑字、粗外框、卡片之間留裁切線。不要其他裝飾。繁體中文。'''),
-    ("提示詞・參考海報風格", "ChatGPT 指令・大字數字卡"),
-    new_title="案例① 做道具：ChatGPT 大字牌卡"))
+S.append(stepper("#10A37F", "第四段　案例①　做道具：看著圖片調整", "案例① 做道具：看著圖片調整",
+    "圖不滿意？在圖上畫起來，告訴 ChatGPT 要改哪裡",
+    [("img/ws/gpt_edit_tools.jpg", "點一下 ChatGPT 畫好的圖：下方有標註、留言、移除背景、擦除、調整大小", "點圖片，打開編輯工具",
+      "先看整張圖：哪裡太小、哪個字錯、哪樣東西個案不熟悉。"),
+     ("img/ws/gpt_edit_mark.jpg", "按「標註」，用紅筆在西瓜上畫叉叉，下方打字說要改什麼（11/17 實測）", "用「標註」把要改的地方畫起來",
+      "畫圈、打叉都可以；再用一句話說清楚「改成什麼、其他不要動」。"),
+     ("img/ws/gpt_edit_chat.jpg", "送出後，ChatGPT 會帶著你畫的記號重新畫一張", "送出，等它重畫",
+      "約 1 分鐘。原本那張還在，改壞了可以回頭用。"),
+     ("img/ws/ws_matching_edit.jpg", "改好了：西瓜換成芭樂、字也改成「芭樂」，其他都沒動", "檢查改好的地方",
+      "只看改的那一格對不對；其他格子有沒有被亂改。滿意就下載列印。"),
+    ],
+    prompt("ChatGPT 指令・看著圖調整", "把我畫紅色叉叉的西瓜換成芭樂，右邊的「西瓜」也改成「芭樂」，其他都不要動。")
+    + '''
+      <div class="note" style="--c:#10A37F"><b>常用的調整</b><span>「字再大一倍」「換成阿嬤熟悉的東西」「拿掉背景」「改成 A4 直式」「這一格的圖跟字對不起來，請改成一樣」。</span></div>''',
+    frame_bg=' style="background:var(--soft)"'))
 
 # 案例②
 S.append(case("②", "var(--blue)", "案例② 只看電視的阿公：老歌＋懷舊聊天", "案例②：陪伴只能看電視？用老歌打開話匣子", "Gemini",
@@ -342,14 +363,54 @@ S.append(case("②", "var(--blue)", "案例② 只看電視的阿公：老歌＋
      "<b>聊天三層</b>：喜不喜歡 → 那時候在哪裡聽 → 那時候你在做什麼工作。",
      "<b>請他教你</b>：「木工最難的是什麼？」把話題從歌帶到他的拿手事。",
      "<b>收尾動作</b>：副歌跟著拍手或敲桌子打拍子，動一動再結束。"],
-    "歌名、歌手 AI 可能記錯，先上 YouTube 搜尋確認；聊到難過的事，停下來陪他，不用急著回到活動。", plab="Gemini 指令・老歌聊天"))
+    "下兩頁實作：先收集懷舊頻道，再請 Gemini 讀一支影片。聊到難過的事，停下來陪他，不用急著回到活動。", plab="Gemini 指令・老歌聊天"))
 
-S.append(keep("實作② 讀影片：YouTube 摘要、Gemini 與 ChatGPT",
-    ("實作②　讀影片：簡報影片教案的第一步", "第四段　案例②　實作：Gemini 讀影片"),
-    ("<h2>影片交給 Gemini：都是 Google，讀得懂 YouTube</h2>", "<h2>影片交給 Gemini：貼上 YouTube 網址，整理出聊天題目</h2>"),
-    ("逐段整理、每段附時間碼（示範影片是長者量六力）。", "逐段整理、每段附時間碼（截圖示範的是衛教影片；老歌 MV、懷舊影片一樣）。"),
-    ("影片的事交給 Gemini。</p>", "影片的事交給 Gemini。</p><p><b>指令範例：</b>「看這支影片，挑 3 個可以停下來問長輩的畫面，附時間碼和問題。」</p>"),
-    new_title="案例② 實作：Gemini 讀 YouTube"))
+CH = [("豪記唱片 HCM Music", "台語老歌、那卡西、伴唱帶", "HCMMUSIC"),
+      ("滾石唱片 ROCK RECORDS", "70–90 年代國語老歌、民歌", "RockRecordsTaipei"),
+      ("LEICO 麗歌唱片", "黑膠時期台語、國語老歌", "leicorecord9198"),
+      ("TFAI 國家影視聽中心", "早期新聞片、老台灣影像、台語片", "TWCTFA"),
+      ("台灣演義", "台灣歷史、人物、城鎮故事", "FTVTaiwanHistory"),
+      ("台視時光機", "台視老連續劇、歌仔戲、綜藝", "TTVClassic"),
+      ("華視懷舊頻道", "華視老劇、歌仔戲、短劇", "cts_arch"),
+      ("台灣真善美", "老街、古早味、傳統手藝職人", "taiwangooddeeds"),
+      ("進擊的台灣", "傳統市場、農漁業、老店故事", "FoodinTaiwan"),
+      ("寶島神很大", "廟宇、陣頭、地方習俗", "godBlessBaodao")]
+ch_rows = "".join(f'<tr><td>{n}</td><td>{d}</td><td><a class="go" href="https://www.youtube.com/@{h}" target="_blank" rel="noopener">開啟</a></td></tr>' for n, d, h in CH)
+P_CH = "我是居家服務員，要陪長輩看懷舊影片、聊往事。請幫我收集 YouTube 上適合台灣長輩的懷舊頻道（台語老歌、國語老歌、台灣老照片和老影片、早期電視節目、古早味或老街），做成一張表：頻道名稱、主要內容、適合的陪伴活動、頻道網址。只列真的存在、還有在播放的頻道，網址要正確，10 個就好。"
+P_VID = "我從「台灣真善美」挑了這支影片：（貼上影片網址）。請看完影片，幫我挑 4 個可以按暫停、問長輩的畫面，做成表格：時間碼、畫面在演什麼、可以問長輩的問題（從簡單到回憶）。最後再給 1 個看完可以一起做的小活動。只根據影片內容，看不到的寫「影片未提及」。"
+
+S.append(f'''<!-- 懷舊頻道資料庫 -->
+<section class="slide" data-title="案例② 實作①：請 Gemini 收集懷舊頻道">
+  <div class="eyebrow" style="--c:var(--blue)"><span class="sq"></span>第四段　案例②　實作①：收集 YouTube 懷舊頻道</div>
+  <h2>先請 Gemini 收集懷舊頻道，做成自己的影片資料庫</h2>
+  <div class="cols" style="--n:2;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:20px">
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="margin:0;flex:1;min-height:0"><div class="frame"><img src="img/yt/channels.jpg" alt="Gemini 整理的懷舊頻道表"></div><figcaption><span>Gemini 整理成表格：頻道名稱、主要內容、陪伴活動、網址（11/17 實測）</span></figcaption></figure>
+      {prompt("Gemini 指令・收集懷舊頻道", P_CH)}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+      <div class="box" style="padding:14px 16px;justify-content:flex-start"><h3 style="font-size:18px">實測結果：10 個頻道網址都打得開</h3>
+        <table class="adj ch">{ch_rows}</table></div>
+      <div class="note" style="--c:var(--blue)"><b>一定要點開確認</b><span>AI 偶爾會編出不存在的頻道。每個網址點開看一次，確認還在、內容適合，再存進自己的資料庫（Google 試算表或 LINE 記事本）。</span></div>
+    </div>
+  </div>
+</section>
+''')
+
+S.append(stepper("var(--blue)", "第四段　案例②　實作②：請 Gemini 讀一支影片", "案例② 實作②：Gemini 讀影片",
+    "從資料庫挑一支影片，請 Gemini 讀完，整理出停格聊天題",
+    [("img/yt/video.jpg", "示範影片：台灣真善美〈布袋傳統手拉麵線〉11 分 40 秒", "從頻道挑一支影片",
+      "挑個案熟悉的主題：他的家鄉、做過的工作、愛吃的東西。複製影片網址。"),
+     ("img/yt/fail.jpg", "實測：用預設模型，Gemini 回答「無法讀取這支 YouTube 影片」", "預設模型可能讀不到",
+      "看到「無法觀看」不要放棄，換模型重問一次。"),
+     ("img/yt/models.jpg", "輸入框右邊的模型選單：選「深度研究 3.1 Pro」，開新對話再貼一次", "換成 Pro 模型，開新對話",
+      "讀影片用 Pro 最穩；每支影片開一個新對話。"),
+     ("img/yt/answer.jpg", "Pro 讀完了：4 個停格畫面，附時間碼、畫面內容、從簡單到回憶的問題", "拿到停格題目表",
+      "還附一個看完可以一起做的小活動：一起拌一碗古早味麵線。"),
+     ("img/yt/check.jpg", "自己對時間碼：1:00 拉麵線、2:37 曬麵線、7:07 盤麵線、10:32 拌苦茶油，四個都對", "自己跳到時間碼看一次",
+      "帶之前把每個時間碼點開確認畫面，對了再帶。"),
+    ],
+    prompt("Gemini 指令・讀影片做停格題", P_VID), frame_bg=' style="background:#000"'))
 
 # 案例③
 S.append(case("③", "var(--mag)", "案例③ 每次都玩那幾種：做一個專屬小遊戲", "案例③：玩到不想玩？用他熟悉的題目做一個小遊戲", "Gemini Canvas",
@@ -375,20 +436,6 @@ S.append(keep("教案① 實作：Gemini Canvas 搶答網頁",
 
 
 # ── 案例③ 分享出去（發布） ──
-def stepper(eyebrow_c, eyebrow, title, h2, steps, right_extra, frame_bg=""):
-    lis = "".join(f'<li data-img="{img}" data-cap="{esc(cap)}"><span class="n">{i+1}</span><div><b>{b}</b><p>{p}</p></div></li>' for i, (img, cap, b, p) in enumerate(steps))
-    return f'''<section class="slide" data-title="{esc(title)}">
-  <div class="eyebrow" style="--c:{eyebrow_c}"><span class="sq"></span>{eyebrow}</div>
-  <h2>{h2}</h2>
-  <div class="stepper" data-stepper>
-    <ol class="steps">{lis}</ol>
-    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
-      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"{frame_bg}><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
-      {right_extra}
-    </div>
-  </div>
-</section>
-'''
 
 S.append(stepper("var(--mag)", "第四段　案例③　發布出去：分享連結", "案例③ 發布：Gemini 分享連結",
     "做好的遊戲發布出去：一個連結，個案、家屬、同事都能玩",
