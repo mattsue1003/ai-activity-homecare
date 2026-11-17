@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>找一樣的：配對圖片 - 長輩視覺認知A4學習單</title>
+  <!-- 載入 Tailwind CSS 進行快速排版 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 載入 Noto Sans TC 確保繁體中文粗黑體清晰易讀 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* 全域字體設定：粗黑高對比 */
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #e5e7eb;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* 嚴格設定標準 A4 直式尺寸 (210mm x 297mm) */
+    .a4-page {
+      width: 210mm;
+      height: 297mm;
+      background-color: #ffffff;
+      margin: 20px auto;
+      padding: 12mm 14mm;
+      box-sizing: border-box;
+      border: 3px solid #000000;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 連接線大黑圓點樣式 */
+    .connect-dot {
+      width: 22px;
+      height: 22px;
+      background-color: #000000;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      box-shadow: 0 0 0 3px #000000;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    /* 圖卡黑色粗框與白底高對比 */
+    .item-card {
+      border: 3.5px solid #000000;
+      border-radius: 16px;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* 列印專用媒體查詢：精準填滿單張 A4 紙張並隱藏控制項 */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        background-color: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .a4-page {
+        margin: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        border: 3px solid #000000 !important;
+        box-shadow: none !important;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+      }
+    }
+
+    /* 螢幕較小時（如手機或平板瀏覽）維持可完整捲動檢視 */
+    @media screen and (max-width: 850px) {
+      .a4-wrapper {
+        overflow-x: auto;
+        padding: 10px;
+      }
+      .a4-page {
+        margin: 10px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部操作控制區（列印時自動隱藏） -->
+  <header class="no-print bg-slate-900 text-white py-5 px-4 shadow-lg sticky top-0 z-50 border-b-4 border-yellow-400">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-center md:text-left">
+        <h2 class="text-xl md:text-2xl font-black tracking-wide text-yellow-300">
+          📄 長輩高對比認知學習單產生器
+        </h2>
+        <p class="text-sm md:text-base text-slate-200 mt-1 font-medium">
+          💡 提示：建議列印時選擇 <strong class="text-white underline">A4 直式</strong>、邊界設為 <strong class="text-white underline">無（或預設）</strong>，並開啟 <strong class="text-white underline">背景圖形</strong> 以呈現最佳色彩。
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <!-- 換一組順序大按鈕 -->
+        <button
+          id="shuffleBtn"
+          type="button"
+          onclick="shuffleWorksheet()"
+          class="bg-amber-400 hover:bg-amber-300 active:translate-y-0.5 text-black font-black text-xl md:text-2xl px-6 py-4 rounded-2xl border-4 border-black shadow-md transition cursor-pointer flex items-center gap-2"
+        >
+          <span class="text-2xl">🔀</span>
+          <span>換一組順序</span>
+        </button>
+
+        <!-- 列印 / 存成 PDF 大按鈕 -->
+        <button
+          id="printBtn"
+          type="button"
+          onclick="printWorksheet()"
+          class="bg-emerald-500 hover:bg-emerald-400 active:translate-y-0.5 text-black font-black text-xl md:text-2xl px-6 py-4 rounded-2xl border-4 border-black shadow-md transition cursor-pointer flex items-center gap-2"
+        >
+          <span class="text-2xl">🖨️</span>
+          <span>列印 / 存成 PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- A4 學習單主體容器 -->
+  <main class="a4-wrapper">
+    <section class="a4-page" id="worksheetPage" aria-label="找一樣的配對圖片學習單">
+      
+      <!-- 1. 頂部大標題與說明列 -->
+      <div class="border-b-4 border-black pb-3 mb-2">
+        <h1 class="text-[38px] leading-tight font-black text-center tracking-wider text-black mb-2">
+          找一樣的：配對圖片
+        </h1>
+
+        <div class="flex items-center justify-between gap-2 pt-1">
+          <!-- 操作指引說明 -->
+          <div class="bg-yellow-100 border-2 border-black rounded-xl px-3 py-1.5">
+            <p class="text-[22px] font-black text-black tracking-wide">
+              👉 把一樣的圖片用線連起來
+            </p>
+          </div>
+
+          <!-- 姓名與日期欄位 -->
+          <div class="text-[20px] font-bold text-black whitespace-nowrap">
+            <span>姓名：__________</span>
+            <span class="ml-3">日期：____/____</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 左右兩欄配對區（5 列均分填滿 A4 剩餘高度，中間保留充足畫線空間） -->
+      <div id="matchingRowsContainer" class="flex-1 flex flex-col justify-between gap-3 py-1">
+        <!-- 由 JavaScript 動態渲染 5 列高辨識度圖卡與連接黑圓點 -->
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    /**
+     * 5 項台灣長輩最熟悉的生活用品資料庫
+     * 每項皆使用高對比、粗黑外框（stroke="#000000" stroke-width="4"~5）、飽滿色彩之獨立 SVG 插畫
+     */
+    const ITEMS_DATA = [
+      {
+        id: 'rice_cooker',
+        name: '電鍋',
+        // 經典紅色大同電鍋：銀色鍋蓋、黑色蓋頭、紅色圓筒身、黑色雙耳提把、白色開關與指示燈
+        svg: `
+          <svg viewBox="0 0 180 140" class="w-[145px] h-[108px] overflow-visible" aria-hidden="true">
+            <!-- 鍋底腳座 -->
+            <rect x="44" y="118" width="18" height="12" rx="4" fill="#1F2937" stroke="#000000" stroke-width="4"/>
+            <rect x="118" y="118" width="18" height="12" rx="4" fill="#1F2937" stroke="#000000" stroke-width="4"/>
+            <!-- 左右黑色提把 -->
+            <path d="M36 66 H18 C12 66 10 72 10 78 C10 84 12 90 18 90 H36" fill="#1F2937" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <path d="M144 66 H162 C168 66 170 72 170 78 C170 84 168 90 162 90 H144" fill="#1F2937" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <!-- 紅色主鍋身 -->
+            <rect x="34" y="54" width="112" height="66" rx="10" fill="#DC2626" stroke="#000000" stroke-width="4.5"/>
+            <!-- 鍋身金屬腰線裝飾 -->
+            <line x1="36" y1="68" x2="144" y2="68" stroke="#FCA5A5" stroke-width="3"/>
+            <line x1="36" y1="108" x2="144" y2="108" stroke="#991B1B" stroke-width="4"/>
+            <!-- 銀色半圓形鍋蓋 -->
+            <path d="M32 54 C32 26 148 26 148 54 Z" fill="#E5E7EB" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <!-- 鍋蓋高光反光線 -->
+            <path d="M52 44 C60 33 82 31 94 31" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+            <!-- 黑色圓形鍋蓋頭 -->
+            <rect x="76" y="14" width="28" height="14" rx="6" fill="#111827" stroke="#000000" stroke-width="4"/>
+            <!-- 前方白色開關面板 -->
+            <rect x="74" y="76" width="32" height="26" rx="5" fill="#FFFFFF" stroke="#000000" stroke-width="3.5"/>
+            <!-- 指示燈（橘紅燈） -->
+            <circle cx="90" cy="83" r="4" fill="#F97316" stroke="#000000" stroke-width="2"/>
+            <!-- 炊飯按壓開關撥片 -->
+            <rect x="81" y="91" width="18" height="7" rx="2" fill="#374151" stroke="#000000" stroke-width="2"/>
+          </svg>
+        `
+      },
+      {
+        id: 'umbrella',
+        name: '雨傘',
+        // 亮藍色與鮮黃色相間大傘面、粗黑傘骨、彎曲咖啡色 J 型長傘柄
+        svg: `
+          <svg viewBox="0 0 180 140" class="w-[145px] h-[108px] overflow-visible" aria-hidden="true">
+            <!-- 傘頂尖端 -->
+            <line x1="90" y1="8" x2="90" y2="20" stroke="#000000" stroke-width="5" stroke-linecap="round"/>
+            <!-- 傘中棒與 J 型彎曲木柄 -->
+            <path d="M90 66 V116 C90 128 72 128 72 116" fill="none" stroke="#78350F" stroke-width="7" stroke-linecap="round"/>
+            <path d="M90 66 V116 C90 128 72 128 72 116" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 0"/>
+            <!-- 傘面主體（亮藍色基底） -->
+            <path d="M22 68 C22 30 52 18 90 18 C128 18 158 30 158 68 C144 61 130 61 118 68 C108 61 98 61 90 68 C82 61 72 61 62 68 C50 61 36 61 22 68 Z" fill="#2563EB" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <!-- 傘面中間醒目鮮黃色區塊 -->
+            <path d="M90 18 C70 18 62 38 62 68 C72 61 82 61 90 68 C98 61 108 61 118 68 C118 38 110 18 90 18 Z" fill="#FACC15" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+            <!-- 中央傘骨分線 -->
+            <line x1="90" y1="18" x2="90" y2="68" stroke="#000000" stroke-width="4"/>
+          </svg>
+        `
+      },
+      {
+        id: 'bamboo_hat',
+        name: '斗笠',
+        // 台灣傳統金黃色竹編斗笠：寬大圓錐帽身、清晰竹編交叉格紋、紅色布邊
+        svg: `
+          <svg viewBox="0 0 180 140" class="w-[145px] h-[108px] overflow-visible" aria-hidden="true">
+            <!-- 斗笠底面陰影（呈現立體帽口） -->
+            <ellipse cx="90" cy="96" rx="74" ry="16" fill="#92400E" stroke="#000000" stroke-width="4.5"/>
+            <!-- 斗笠圓錐金黃色竹編主體 -->
+            <path d="M16 94 L84 26 C88 22 92 22 96 26 L164 94 C135 106 45 106 16 94 Z" fill="#FBBF24" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <!-- 竹編放射狀粗線條 -->
+            <line x1="90" y1="24" x2="45" y2="99" stroke="#92400E" stroke-width="3.5"/>
+            <line x1="90" y1="24" x2="72" y2="102" stroke="#92400E" stroke-width="3.5"/>
+            <line x1="90" y1="24" x2="108" y2="102" stroke="#92400E" stroke-width="3.5"/>
+            <line x1="90" y1="24" x2="135" y2="99" stroke="#92400E" stroke-width="3.5"/>
+            <!-- 竹編橫向弧線紋路 -->
+            <path d="M58 52 Q90 60 122 52" fill="none" stroke="#92400E" stroke-width="3.5"/>
+            <path d="M38 73 Q90 84 142 73" fill="none" stroke="#92400E" stroke-width="3.5"/>
+            <!-- 傳統紅色帽緣包邊 -->
+            <path d="M16 94 C45 106 135 106 164 94" fill="none" stroke="#DC2626" stroke-width="7" stroke-linecap="round"/>
+            <path d="M16 94 C45 106 135 106 164 94" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 斗笠尖端藤編帽頂 -->
+            <path d="M81 30 L90 21 L99 30 Z" fill="#B45309" stroke="#000000" stroke-width="3.5" stroke-linejoin="round"/>
+          </svg>
+        `
+      },
+      {
+        id: 'grocery_bag',
+        name: '菜籃',
+        // 台灣經典紅藍綠條紋茄芷袋（買菜籃），內裝鮮綠青菜與橘紅蘿蔔
+        svg: `
+          <svg viewBox="0 0 180 140" class="w-[145px] h-[108px] overflow-visible" aria-hidden="true">
+            <!-- 後方提把 -->
+            <path d="M62 48 C62 20 118 20 118 48" fill="none" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+            <!-- 籃內露出的鮮綠青菜葉 -->
+            <path d="M44 52 C36 32 58 22 68 42 C74 24 94 26 92 48 Z" fill="#16A34A" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+            <!-- 籃內露出的橘色紅蘿蔔 -->
+            <path d="M106 48 L128 24 C134 28 136 34 130 40 L116 52 Z" fill="#F97316" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+            <!-- 茄芷袋梯形袋身：上層綠色條紋 -->
+            <polygon points="34,48 146,48 142,72 38,72" fill="#16A34A" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+            <!-- 茄芷袋梯形袋身：中層紅色條紋 -->
+            <polygon points="38,72 142,72 138,98 42,98" fill="#DC2626" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+            <!-- 茄芷袋梯形袋身：下層藍色條紋 -->
+            <polygon points="42,98 138,98 134,122 46,122" fill="#2563EB" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+            <!-- 袋身垂直編織線條增加質感 -->
+            <line x1="70" y1="48" x2="73" y2="122" stroke="#000000" stroke-width="2.5" stroke-opacity="0.45"/>
+            <line x1="110" y1="48" x2="107" y2="122" stroke="#000000" stroke-width="2.5" stroke-opacity="0.45"/>
+            <!-- 前方黑色粗提把 -->
+            <path d="M66 52 C66 26 114 26 114 52" fill="none" stroke="#000000" stroke-width="6.5" stroke-linecap="round"/>
+          </svg>
+        `
+      },
+      {
+        id: 'teapot',
+        name: '茶壺',
+        // 台灣傳統泡茶大陶壺：暖橘紅壺身、弧形壺嘴、大提把與圓鈕壺蓋
+        svg: `
+          <svg viewBox="0 0 180 140" class="w-[145px] h-[108px] overflow-visible" aria-hidden="true">
+            <!-- 右側大彎曲壺把 -->
+            <path d="M126 54 C156 50 162 96 124 102" fill="none" stroke="#9A3412" stroke-width="11" stroke-linecap="round"/>
+            <path d="M126 54 C156 50 162 96 124 102" fill="none" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
+            <!-- 左側弧形壺嘴 -->
+            <path d="M48 86 C26 84 20 62 14 50 L28 46 C34 56 38 66 52 68 Z" fill="#EA580C" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <!-- 圓潤茶壺主體 -->
+            <ellipse cx="88" cy="84" rx="44" ry="36" fill="#EA580C" stroke="#000000" stroke-width="4.5"/>
+            <!-- 壺身金色傳統吉祥圓紋裝飾 -->
+            <circle cx="88" cy="86" r="16" fill="#FEF08A" stroke="#000000" stroke-width="3.5"/>
+            <circle cx="88" cy="86" r="7" fill="#DC2626" stroke="#000000" stroke-width="2.5"/>
+            <!-- 壺蓋 -->
+            <path d="M58 50 C58 38 118 38 118 50 Z" fill="#C2410C" stroke="#000000" stroke-width="4.5" stroke-linejoin="round"/>
+            <!-- 壺蓋圓形提鈕 -->
+            <circle cx="88" cy="33" r="8" fill="#FACC15" stroke="#000000" stroke-width="4"/>
+            <!-- 壺底底座 -->
+            <rect x="64" y="117" width="48" height="8" rx="3" fill="#7C2D12" stroke="#000000" stroke-width="4"/>
+          </svg>
+        `
+      }
+    ];
+
+    /**
+     * 洗牌演算法（Fisher-Yates Shuffle）
+     * @param {Array} array 欲打亂的陣列
+     * @returns {Array} 新的隨機排列陣列
+     */
+    function getShuffledArray(array) {
+      const cloned = [...array];
+      for (let i = cloned.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
+      return cloned;
+    }
+
+    /**
+     * 產生錯位（Derangement）的右欄順序，確保任何一列都不會出現左右同一張圖水平直線相連
+     * 讓長輩能真正練習「斜向觀察與連線」
+     * @param {Array} leftItems 已排好的左欄項目陣列
+     * @returns {Array} 保證每一列都與左欄不同的右欄項目陣列
+     */
+    function getDerangedRightItems(leftItems) {
+      let rightItems = getShuffledArray(leftItems);
+      let attempts = 0;
+
+      // 檢查是否有任何一列左右相同（index 位置 id 相同）
+      const hasSameRowMatch = (left, right) => {
+        return left.some((item, idx) => item.id === right[idx].id);
+      };
+
+      while (hasSameRowMatch(leftItems, rightItems) && attempts < 100) {
+        rightItems = getShuffledArray(leftItems);
+        attempts++;
+      }
+
+      // 極端保底：若仍巧合重疊，直接循環平移一格確保 100% 錯開
+      if (hasSameRowMatch(leftItems, rightItems)) {
+        rightItems = [...leftItems.slice(1), leftItems[0]];
+      }
+
+      return rightItems;
+    }
+
+    /**
+     * 渲染學習單主體（5 列左右配對圖卡與大黑圓點）
+     */
+    function renderWorksheet() {
+      const container = document.getElementById('matchingRowsContainer');
+      if (!container) return;
+
+      // 同時隨機打亂左欄與右欄，並確保左右完全錯開
+      const leftColumnItems = getShuffledArray(ITEMS_DATA);
+      const rightColumnItems = getDerangedRightItems(leftColumnItems);
+
+      container.innerHTML = '';
+
+      for (let i = 0; i < 5; i++) {
+        const leftItem = leftColumnItems[i];
+        const rightItem = rightColumnItems[i];
+
+        const rowEl = document.createElement('div');
+        // 每一列均分高度（flex-1），左右各佔約 33%，中間保留 34% 寬敞白色畫線空間
+        rowEl.className = 'flex-1 flex items-center justify-between w-full min-h-0';
+
+        rowEl.innerHTML = `
+          <!-- 左欄圖卡 + 右側連接大黑點 -->
+          <div class="w-[33%] h-full flex items-center relative">
+            <div class="item-card">
+              <div class="flex items-center justify-center flex-1">
+                ${leftItem.svg}
+              </div>
+              <div class="text-[24px] leading-none font-black text-black tracking-widest mt-1">
+                ${leftItem.name}
+              </div>
+            </div>
+            <!-- 左欄卡片右側邊緣大黑圓點 -->
+            <div class="connect-dot -ml-2.5" title="從這裡畫線"></div>
+          </div>
+
+          <!-- 中間充足白色畫線空間（約 34% 寬度） -->
+          <div class="w-[34%] h-full" aria-hidden="true"></div>
+
+          <!-- 左側連接大黑點 + 右欄圖卡 -->
+          <div class="w-[33%] h-full flex items-center justify-end relative">
+            <!-- 右欄卡片左側邊緣大黑圓點 -->
+            <div class="connect-dot -mr-2.5" title="連到這裡"></div>
+            <div class="item-card">
+              <div class="flex items-center justify-center flex-1">
+                ${rightItem.svg}
+              </div>
+              <div class="text-[24px] leading-none font-black text-black tracking-widest mt-1">
+                ${rightItem.name}
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(rowEl);
+      }
+    }
+
+    /**
+     * 點擊「換一組順序」按鈕處理函式
+     */
+    function shuffleWorksheet() {
+      renderWorksheet();
+    }
+
+    /**
+     * 點擊「列印 / 存成 PDF」按鈕處理函式
+     */
+    function printWorksheet() {
+      window.print();
+    }
+
+    // 頁面載入完成後立即產生一組左右錯開的學習單
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWorksheet();
+    });
+  </script>
+</body>
+</html>

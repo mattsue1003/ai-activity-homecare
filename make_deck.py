@@ -55,6 +55,12 @@ css = """
 .case .tagline{font-size:13px;color:var(--muted)}
 .noterow{display:grid;grid-template-columns:repeat(var(--k),minmax(0,1fr));gap:14px}
 a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}a.go:hover{color:var(--ink)}
+.wsrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;flex:1;min-height:0}
+.wsc{margin:0;display:flex;flex-direction:column;gap:6px;min-height:0;border:1px solid var(--line);border-top:5px solid var(--c);border-radius:10px;padding:8px;background:var(--paper)}
+.wsc>a{flex:1;min-height:0;display:block;background:#fff;border-radius:6px;overflow:hidden}
+.wsc img{width:100%;height:100%;object-fit:contain;display:block}
+.wsc figcaption{display:flex;align-items:center;gap:8px;font-size:15px}.wsc figcaption b{font-size:17px}
+.wsc .tool{font-size:12.5px;color:var(--c);font-weight:700}.wsc figcaption .go{margin-left:auto;font-size:13px}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
 .pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
@@ -73,6 +79,8 @@ def ex(slug, title, desc):
             f'<div class="row"><span><b>{esc(title)}</b><small>{esc(desc)}</small></span><img class="q" src="img/qr/{slug}.svg" alt="{esc(title)} QR code"></div></a>')
 def exs(items, m=3):
     return f'<div class="exgrid" style="--m:{m}">' + "".join(ex(*i) for i in items) + "</div>"
+def A(url, text):
+    return f'<a class="go" href="{url}" target="_blank" rel="noopener">{text} ↗</a>'
 def prompt(lab, text):
     return f'<div class="prompt"><div class="lab">{lab}<button class="copy">複製</button></div>{text}</div>'
 
@@ -351,19 +359,140 @@ S.append(case("③", "var(--mag)", "案例③ 每次都玩那幾種：做一個�
      "<b>不扣分</b>：答錯也給正確答案和鼓勵，沒有失敗感。",
      "<b>一題一聊</b>：答完問「這道妳都怎麼煮？」遊戲變成聊天的開頭。",
      "<b>下次換玩法</b>：同一份題目改成配對、翻牌、猜猜看，不會又是同一個。"],
-    "題目和答案你先看一次；做好後按「分享」產生連結，存在平板的書籤，下次直接開。", plab="Gemini Canvas 指令・專屬小遊戲"))
+    "題目和答案你先看一次；做好後按「分享」發布成連結，傳給家屬或存在平板（下下頁教）。", plab="Gemini Canvas 指令・專屬小遊戲"))
 
 S.append(keep("教案① 實作：Gemini Canvas 搶答網頁",
     ("教案設計①　實作：Gemini Canvas", "第四段　案例③　實作：Gemini Canvas"),
     ("<h2>Gemini Canvas：講清楚玩法，兩分鐘做出搶答遊戲</h2>", "<h2>Gemini Canvas：講清楚玩法，兩分鐘做出小遊戲</h2>"),
     ("給誰用（祖孫一起玩）、內容（題目與題數）、互動（大按鈕、煙火、兩組計分）、外觀（大字、溫暖配色）", "給誰用（一對一陪伴長輩）、內容（題目與題數）、互動（大按鈕、答對鼓勵、不扣分）、外觀（大字、溫暖配色）"),
-    ("投影到電視就能帶活動。要帶走：按「分享」產生連結，或「匯出」程式碼，再到實作⑦上架。", "平板、手機打開就能玩。要帶走：按「分享」產生連結，傳到自己的 LINE 或存成書籤。"),
+    ("投影到電視就能帶活動。要帶走：按「分享」產生連結，或「匯出」程式碼，再到實作⑦上架。", "平板、手機打開就能玩。要帶走：按「分享」發布成連結，下一頁一步一步教。"),
     ("題目的醫療說法由你把關。", "題目和答案由你把關。"),
     ("<b>答對有煙火、有衛教重點</b>", "<b>答對有鼓勵，看看成品</b>"),
     ("Gemini 還自己加了「朗讀題目」與「選題清單」。不要的功能直接說「拿掉朗讀」。", "Gemini 常會自己加功能（截圖是加了朗讀題目和兩隊計分）。不要的功能直接說「拿掉計分」。"),
     ('''提示詞・祖孫搶答網頁<button class="copy">複製</button></div>幫我做一個互動網頁：「阿公阿嬤的童年 vs 我的童年」搶答遊戲，給祖孫一起玩。10 題二選一（例：小時候玩彈珠還是玩平板？），大字、大按鈕，答完顯示一句「請阿公阿嬤分享當年」的提問，可分祖孫兩隊計分，答對放煙火。繁體中文，溫暖配色。''',
      '''Gemini 指令・不滿意就追問<button class="copy">複製</button></div>請幫我修改：1. 字再放大一倍，按鈕至少占螢幕寬度的一半；2. 拿掉計時和扣分；3. 每題答完多一句聊天問題，例如「這道菜妳都什麼時候煮？」；4. 其他地方不要改。'''),
     new_title="案例③ 實作：Gemini Canvas"))
+
+
+# ── 案例③ 分享出去（發布） ──
+def stepper(eyebrow_c, eyebrow, title, h2, steps, right_extra, frame_bg=""):
+    lis = "".join(f'<li data-img="{img}" data-cap="{esc(cap)}"><span class="n">{i+1}</span><div><b>{b}</b><p>{p}</p></div></li>' for i, (img, cap, b, p) in enumerate(steps))
+    return f'''<section class="slide" data-title="{esc(title)}">
+  <div class="eyebrow" style="--c:{eyebrow_c}"><span class="sq"></span>{eyebrow}</div>
+  <h2>{h2}</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps">{lis}</ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"{frame_bg}><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      {right_extra}
+    </div>
+  </div>
+</section>
+'''
+
+S.append(stepper("var(--mag)", "第四段　案例③　發布出去：分享連結", "案例③ 發布：Gemini 分享連結",
+    "做好的遊戲發布出去：一個連結，個案、家屬、同事都能玩",
+    [("img/ws/gem_canvas.jpg", "Canvas 右上角：程式碼／預覽、匯出、分享（＜ 形狀的圖示）", "按 Canvas 右上角的「分享」",
+      "在預覽畫面上方，「匯出」右邊那個圖示。"),
+     ("img/ws/gem_share.jpg", "按下去就產生公開連結，而且已經自動複製好了（11/17 實測）", "連結已經自動複製",
+      "畫面出現 share.gemini.google 開頭的連結，直接到 LINE 貼上傳給家屬或自己。"),
+     ("img/ws/gem_warn.jpg", "對方第一次打開：Gemini 會先提醒「這個應用程式是由他人打造」", "對方打開，先按「繼續」",
+      "這是 Google 的安全提醒，跟家屬說：看到這個畫面按「繼續」就好。"),
+     ("img/ws/gem_shared.jpg", "按繼續後就能玩，按鈕也能用（這是 Gemini 做的配對學習單）", "手機、平板打開就能玩",
+      "平板用 Safari 打開，按「分享 → 加入主畫面」，下次點圖示就開。"),
+    ],
+    '''<div class="note" style="--c:var(--mag)"><b>發布前想一想</b><span>拿到連結的人都能打開：題目裡不要有個案姓名、照片、地址。不想分享了，到 Gemini「設定 → 你的公開連結」刪除。</span></div>
+      <div class="note" style="--c:var(--blue)"><b>ChatGPT 做的圖片</b><span>圖片或 PDF 直接傳 LINE，或存在平板的「照片」裡，打開就能用。</span></div>'''))
+
+# ── 做教具：四種學習單 ──
+def wscard(img, title, tool, color, pdf):
+    return (f'<figure class="wsc" style="--c:{color}"><a href="{img}" target="_blank" rel="noopener"><img src="{img}" alt="{esc(title)} 成品" loading="lazy"></a>'
+            f'<figcaption><b>{title}</b><span class="tool">{tool}</span><a class="go" href="{pdf}" target="_blank" rel="noopener">A4 PDF</a></figcaption></figure>')
+
+S.append(f'''<!-- 學習單總覽 -->
+<section class="slide" data-title="做教具：四種學習單（真的成品）">
+  <div class="eyebrow" style="--c:var(--green)"><span class="sq"></span>第四段　做教具：學習單</div>
+  <h2>四種學習單，ChatGPT、Gemini 都做得到：印出來、存 PDF、iPad 直接畫</h2>
+  <div class="wsrow">
+    {wscard("img/ws/ws_matching_chatgpt.jpg", "連連看", "ChatGPT 畫圖", "#10A37F", "pdf/連連看_ChatGPT.pdf")}
+    {wscard("img/ws/ws_find_chatgpt.jpg", "找物品圈起來", "ChatGPT 畫圖", "#10A37F", "pdf/找物品圈起來_ChatGPT.pdf")}
+    {wscard("img/ws/ws_compare_gemini.jpg", "比大小", "Gemini Canvas", "var(--blue)", "pdf/比大小_Gemini.pdf")}
+    {wscard("img/ws/ws_pair_gemini.jpg", "配對圖片", "Gemini Canvas", "var(--blue)", "pdf/配對圖片_Gemini.pdf")}
+  </div>
+  <div class="noterow" style="--k:3">
+    <div class="note" style="--c:var(--green)"><b>印出來</b><span>A4 直式、黑白也清楚；長輩用粗的彩色筆畫線、圈起來。</span></div>
+    <div class="note" style="--c:var(--amber)"><b>存成 PDF</b><span>ChatGPT：說「做成 A4 PDF」；Gemini：按頁面上的「列印 / 存成 PDF」。</span></div>
+    <div class="note" style="--c:var(--blue)"><b>iPad 直接玩</b><span>圖片存進「照片」→「編輯」→ 筆的圖示，用手指畫線、圈起來；按「復原」就能再玩一次。</span></div>
+  </div>
+  <p class="muted" style="font-size:13px">以上四張都是 11/17 用下一頁的指令實際做出來的成品，沒有修圖。點圖片看大圖，點「A4 PDF」下載列印。</p>
+</section>
+''')
+
+P_MATCH = "幫我畫一張 A4 直式、可以列印的「連連看」學習單圖片，給視力不好的長輩：標題「菜市場連連看」。左邊一排 5 個大大的蔬菜水果圖（高麗菜、香蕉、番茄、地瓜、西瓜），右邊一排 5 個大字名稱，順序打亂，每個圖和名稱旁邊各有一個黑色大圓點，中間留大片空白讓長輩畫線。字要非常大、黑色粗體、白底、線條清楚、不要其他裝飾。繁體中文，不要錯字。"
+P_FIND = "幫我畫一張 A4 直式、可以列印的「找找看，圈起來」學習單圖片，給視力不好的長輩：上方大標題「菜市場找找看」。中間是一張熱鬧但不複雜的台灣傳統菜市場攤位插圖，畫面裡清楚放著 5 樣東西：香蕉、一條魚、一盒雞蛋、竹菜籃、傳統秤。物品要畫大、輪廓清楚、不要互相重疊。最下方一排列出這 5 樣東西的小圖和大字名稱，旁邊各有一個空白方框可以打勾。白底、線條清楚、顏色明亮，繁體中文，不要錯字。"
+P_COMPARE = "請用 Canvas 幫我做一個可以列印的 A4 直式學習單網頁「撲克牌比大小」，給視力不好的長輩：最上面大標題和一行說明「圈出數字比較大的那張牌」，下面 5 題，每題左右兩張很大的撲克牌（只用 A 到 10，紅心或黑桃，用程式畫出來，數字和花色要很大），題號大字。頁面上有「換一組題目」和「列印 / 存成 PDF」兩個大按鈕，按列印時按鈕不要印出來，剛好一張 A4。白底、黑色粗框、繁體中文。"
+P_PAIR = "請用 Canvas 幫我做一個可以列印的 A4 直式學習單網頁「找一樣的：配對圖片」，給視力不好的長輩：最上面大標題和一行說明「把一樣的圖片用線連起來」。左右兩欄各 5 張大圖，畫長輩熟悉的生活用品（電鍋、雨傘、斗笠、菜籃、茶壺），用程式畫出大大的彩色圖案，右邊順序打亂；每張圖旁邊有一個黑色大圓點方便畫線。頁面上有「換一組順序」和「列印 / 存成 PDF」兩個大按鈕，列印時按鈕不要印出來，5 題剛好一張 A4。白底、黑色粗框、繁體中文。"
+
+S.append(stepper("#10A37F", "第四段　做教具　ChatGPT 做法", "學習單 ChatGPT 做法：畫成圖片再轉 PDF",
+    "ChatGPT 做法：請它「畫」一張學習單，再轉成 A4 PDF",
+    [("img/ws/gpt_match_chat.jpg", "chatgpt.com：貼上指令，約 1 分鐘畫好（11/17 實測）", "貼指令，請它畫",
+      "寫清楚：A4 直式、給誰（視力不好的長輩）、內容幾題、字要大、白底。"),
+     ("img/ws/ws_matching_chatgpt.jpg", "成品：菜市場連連看", "逐字檢查",
+      "名稱有沒有錯字、圖跟字對不對得起來。有錯就說「把右邊第 2 個字改成…，其他不要動」。"),
+     ("img/ws/gpt_match_pdf.jpg", "說「做成 A4 PDF」，它直接給一個 PDF，右上角下載", "請它做成 A4 PDF",
+      "再打一句：「請把這張圖做成 A4 大小的 PDF 檔讓我下載列印」。"),
+     ("img/ws/ws_find_chatgpt.jpg", "同一招做「找物品圈起來」：菜市場攤位插圖", "換題目做下一張",
+      "找物品圈起來、配對、比大小都一樣做法；指令在下一頁。"),
+    ],
+    prompt("ChatGPT 指令・連連看", P_MATCH), frame_bg=' style="background:var(--soft)"'))
+
+S.append(stepper("var(--blue)", "第四段　做教具　Gemini 做法", "學習單 Gemini 做法：Canvas 可列印網頁",
+    "Gemini 做法：用 Canvas 做「可以一直換題目」的學習單網頁",
+    [("img/ws/gem_canvas.jpg", "Gemini Canvas 做好的學習單網頁：換一組順序、列印 / 存成 PDF", "請 Canvas 做學習單網頁",
+      "指令加一句「有換一組題目和列印按鈕，列印時按鈕不要印出來」。"),
+     ("img/ws/ws_compare_gemini.jpg", "按「列印 / 存成 PDF」：撲克牌比大小，剛好一張 A4", "按列印，或存成 PDF",
+      "列印視窗裡「目的地」選「另存為 PDF」就變成檔案。"),
+     ("img/ws/ws_compare_gemini.jpg", "第一次做第 5 題被切到下一頁；追問一句就改好", "印不下？追問一句",
+      "實測第一次第 5 題被切掉，說「把每題縮小一點，5 題剛好一張 A4，其他不要改」就好了。"),
+     ("img/ws/ws_pair_gemini.jpg", "同一招做「配對圖片」：電鍋、雨傘、斗笠、菜籃、茶壺", "按「換一組」就是新的一張",
+      "每次陪伴印一張不一樣的，不怕個案背答案。"),
+    ],
+    prompt("Gemini 指令・比大小", P_COMPARE), frame_bg=' style="background:var(--soft)"'))
+
+S.append(f'''<!-- 四種學習單指令 -->
+<section class="slide" data-title="四種學習單指令">
+  <div class="eyebrow" style="--c:var(--green)"><span class="sq"></span>第四段　做教具　指令帶回去用</div>
+  <h2>四種學習單的指令：複製、改主題，就是你的學習單</h2>
+  <div class="cols" style="--n:2">
+    {prompt("連連看（ChatGPT）", P_MATCH)}
+    {prompt("找物品圈起來（ChatGPT）", P_FIND)}
+    {prompt("比大小（Gemini Canvas）", P_COMPARE)}
+    {prompt("配對圖片（Gemini Canvas）", P_PAIR)}
+  </div>
+  <div class="note" style="--c:var(--green)"><b>改主題</b><span>菜市場換成「廚房用品」「台灣小吃」「老家農具」；變簡單：題目少一點；變難：換成影子配對、多 2 個干擾物。</span></div>
+</section>
+''')
+
+# ── 懷舊應用：時光留聲機 ──
+S.append(stepper("var(--amber)", "第四段　懷舊應用　帶大家一起操作", "懷舊應用：時光留聲機",
+    "時光留聲機：陪長輩說故事，把人生錄成一張唱片",
+    [("img/lsp/1_elder.jpg", "第一次打開：輸入長輩稱呼（出生年可不填）", "打開網頁，輸入長輩稱呼",
+      "稱呼會印在故事書封面。手機可以「加到主畫面」，下次一點就開。"),
+     ("img/lsp/2_home.jpg", "首頁：開始聊天，或隨機抽一題", "按「開始聊天」",
+      "不知道從哪開始，按「隨機抽一題」。"),
+     ("img/lsp/3_topics.jpg", "七段人生：童年時光、求學青春、工作打拼、成家相伴、家鄉味道、人生智慧、留給家人", "選一段人生，點一個問題",
+      "從他最熟悉、最開心的那段開始，例如童年、家鄉味道。"),
+     ("img/lsp/4_consent.jpg", "錄音前，先問長輩願不願意", "錄音前先問一聲",
+      "「我想把您說的故事錄下來，留給家裡的孩子聽，好不好？」長輩答應了再錄。"),
+     ("img/lsp/5_record.jpg", "唸題目、按開始錄音；下面有追問小卡和陪伴小提醒", "慢慢問，用追問小卡接話",
+      "長輩停下來就點一張追問小卡；記錯不糾正、沉默先等十秒，一次 10～20 分鐘。"),
+     ("img/lsp/6_label.jpg", "說完了：寫故事名稱、年代、重點，配一張老照片", "替這張唱片寫標籤",
+      "只有名稱是必要的；配一張老照片，會印在唱片中間。"),
+     ("img/lsp/7_book.jpg", "故事書：列印生命故事書、下載備份", "印成生命故事書送家人",
+      "所有唱片整理成一本書，可以列印或存成 PDF；換手機前先「下載備份」。"),
+    ],
+    f'''<div class="note" style="--c:var(--amber)"><b>為什麼用懷舊</b><span>聊自己的人生，長輩最有共鳴、最想說；錄下來的聲音和故事，是留給家人的記憶。</span></div>
+      <div class="note" style="--c:var(--blue)"><b>打開網頁</b><span>{A("https://mattsue1003.github.io/life-story-phonograph/", "mattsue1003.github.io/life-story-phonograph")}　聲音只存在這台裝置，不會上傳。</span></div>'''))
 
 # 做好的工具直接用
 S.append(f'''<!-- 現成工具 -->
@@ -439,6 +568,27 @@ S.append('''<!-- 帶走 -->
 </section>
 ''')
 
+
+# 資料庫（最後面）
+S.append(f'''<!-- 資料庫 -->
+<section class="slide" data-title="更多資料庫：帶回去慢慢用">
+  <div class="eyebrow" style="--c:var(--sky)"><span class="sq"></span>帶回去用　資料庫</div>
+  <h2>更多資料庫：聽歌、猜圖、認識鳥蟲花、聊天、團康</h2>
+  {exs([
+    ("oldsongdata","懷舊點唱機：回憶金曲 200","依年代找長輩年輕時的歌，一起聽"),
+    ("oldpicguess","看照片猜藝人","臺灣資深藝人老照片，猜猜是誰"),
+    ("bird-guess-quiz","猜猜我是誰：台灣鳥朋友","一步一步給提示，還有真實鳥叫聲"),
+    ("insect-guess-quiz","猜猜我是誰：台灣昆蟲朋友","看特徵猜昆蟲，附影片"),
+    ("flower-guess-quiz","猜猜我是什麼花","台灣四季花朋友，分段提示猜花"),
+    ("home-chat-db","居家陪伴聊天庫","36 主題懷舊聊天題，附接話範例"),
+    ("home-chat-local","居家聊天在地篇","依身分背景、家鄉找話題"),
+    ("group-building-games","團康活動影片資料庫","破冰、合作、律動，看影片就會帶"),
+    ("japan-dayservice-activity-videos","日照團康影片資料庫","日本日照中心團康與體操，中文整理"),
+    ("life-story-phonograph","時光留聲機","陪長輩說故事，錄成唱片和故事書"),
+  ], m=5)}
+</section>
+''')
+
 S.append(keep("謝謝聆聽",
     ('<a class="fbcard" href="https://mattsue1003.github.io/intergen-ai-play/"', f'<a class="fbcard" href="{DECK_URL}"'),
     (re.search(r'\s*<a class="fbcard" href="https://line\.me.*?</a>', old["謝謝聆聽"], re.S).group(0), "")))
@@ -449,11 +599,13 @@ def idx(title):
         if f'data-title="{esc(title)}"' in s: return i + 1
     raise KeyError(title)
 ag = [("var(--mag)", "開場：你也遇過嗎？", "三種陪伴困擾，先玩一題", "封面", "5′", "你是不是也遇過？"),
-      ("var(--blue)", "認識 AI 活動設計", "AI 能幫你做的四件事、ChatGPT 和 Gemini 怎麼選", "", "8′", "認識 AI 活動設計：AI 能幫你做的四件事"),
-      ("var(--blue)", "基本操作", "登入、開新對話、用說的、繁體設定、好指令五要素", "", "15′", "基本操作① 打開、登入、開新對話"),
-      ("var(--green)", "好玩的原則", "能力階梯、撲克牌四種玩法、依狀況調整", "", "10′", "好玩的原則① 從他做得到的那一層開始"),
-      ("var(--amber)", "三個案例", "① 撲克牌×視力不好　② 老歌聊天　③ 專屬小遊戲", "", "17′", "案例① 撲克牌×視力不好的阿嬤"),
-      ("var(--sky)", "檢查與帶回去用", "檢查清單、現成工具、提示詞庫", "", "5′", "做好的工具也可以直接用")]
+      ("var(--blue)", "認識 AI 活動設計", "AI 能幫你做的四件事、ChatGPT 和 Gemini 怎麼選", "", "6′", "認識 AI 活動設計：AI 能幫你做的四件事"),
+      ("var(--blue)", "基本操作", "登入、開新對話、用說的、繁體設定、好指令五要素", "", "10′", "基本操作① 打開、登入、開新對話"),
+      ("var(--green)", "好玩的原則", "能力階梯、撲克牌四種玩法、依狀況調整", "", "7′", "好玩的原則① 從他做得到的那一層開始"),
+      ("var(--amber)", "三個案例＋發布", "① 撲克牌×視力不好　② 老歌聊天　③ 專屬小遊戲＋分享連結", "", "14′", "案例① 撲克牌×視力不好的阿嬤"),
+      ("var(--green)", "做教具：四種學習單", "連連看、找物品、比大小、配對：ChatGPT 與 Gemini 做法", "", "8′", "做教具：四種學習單（真的成品）"),
+      ("var(--amber)", "懷舊應用：時光留聲機", "陪長輩說故事，錄成唱片、印成故事書", "", "6′", "懷舊應用：時光留聲機"),
+      ("var(--sky)", "檢查與資料庫", "檢查清單、提示詞庫、更多資料庫", "", "4′", "帶活動前的檢查清單")]
 links = "".join(f'<a href="#s{idx(t)}"><span class="no" style="--c:{c}">{i}</span><span><strong>{a}</strong><small>{b}</small></span><em>{m}</em></a>'
                 for i, (c, a, b, _, m, t) in enumerate(ag))
 S[S.index("@@AGENDA@@")] = f'''<!-- 地圖 -->
@@ -468,8 +620,6 @@ S[S.index("@@AGENDA@@")] = f'''<!-- 地圖 -->
 out = head + "".join(S) + tail
 
 # 網址都做成可以點的連結（開新分頁）
-def A(url, text):
-    return f'<a class="go" href="{url}" target="_blank" rel="noopener">{text} ↗</a>'
 LINKS = [
     ('<p>網址 myaccount.google.com/language → ', '<p>網址 ' + A("https://myaccount.google.com/language", "myaccount.google.com/language") + ' → '),
     ('<span class="sub">chatgpt.com・', '<span class="sub">' + A("https://chatgpt.com/", "chatgpt.com") + '・'),

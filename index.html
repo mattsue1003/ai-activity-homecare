@@ -345,6 +345,12 @@ td.num{font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular
 .case .tagline{font-size:13px;color:var(--muted)}
 .noterow{display:grid;grid-template-columns:repeat(var(--k),minmax(0,1fr));gap:14px}
 a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}a.go:hover{color:var(--ink)}
+.wsrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;flex:1;min-height:0}
+.wsc{margin:0;display:flex;flex-direction:column;gap:6px;min-height:0;border:1px solid var(--line);border-top:5px solid var(--c);border-radius:10px;padding:8px;background:var(--paper)}
+.wsc>a{flex:1;min-height:0;display:block;background:#fff;border-radius:6px;overflow:hidden}
+.wsc img{width:100%;height:100%;object-fit:contain;display:block}
+.wsc figcaption{display:flex;align-items:center;gap:8px;font-size:15px}.wsc figcaption b{font-size:17px}
+.wsc .tool{font-size:12.5px;color:var(--c);font-weight:700}.wsc figcaption .go{margin-left:auto;font-size:13px}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
 .pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
@@ -457,7 +463,7 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
 <section class="slide" data-title="今天的地圖">
   <div class="eyebrow" style="--c:var(--amber)"><span class="sq"></span>今天的地圖　60 分鐘</div>
   <h2>先學會基本操作，再用三個案例做出好玩活動</h2>
-  <nav class="agenda" aria-label="課程地圖"><a href="#s3"><span class="no" style="--c:var(--mag)">0</span><span><strong>開場：你也遇過嗎？</strong><small>三種陪伴困擾，先玩一題</small></span><em>5′</em></a><a href="#s6"><span class="no" style="--c:var(--blue)">1</span><span><strong>認識 AI 活動設計</strong><small>AI 能幫你做的四件事、ChatGPT 和 Gemini 怎麼選</small></span><em>8′</em></a><a href="#s8"><span class="no" style="--c:var(--blue)">2</span><span><strong>基本操作</strong><small>登入、開新對話、用說的、繁體設定、好指令五要素</small></span><em>15′</em></a><a href="#s12"><span class="no" style="--c:var(--green)">3</span><span><strong>好玩的原則</strong><small>能力階梯、撲克牌四種玩法、依狀況調整</small></span><em>10′</em></a><a href="#s15"><span class="no" style="--c:var(--amber)">4</span><span><strong>三個案例</strong><small>① 撲克牌×視力不好　② 老歌聊天　③ 專屬小遊戲</small></span><em>17′</em></a><a href="#s21"><span class="no" style="--c:var(--sky)">5</span><span><strong>檢查與帶回去用</strong><small>檢查清單、現成工具、提示詞庫</small></span><em>5′</em></a></nav>
+  <nav class="agenda" aria-label="課程地圖"><a href="#s3"><span class="no" style="--c:var(--mag)">0</span><span><strong>開場：你也遇過嗎？</strong><small>三種陪伴困擾，先玩一題</small></span><em>5′</em></a><a href="#s6"><span class="no" style="--c:var(--blue)">1</span><span><strong>認識 AI 活動設計</strong><small>AI 能幫你做的四件事、ChatGPT 和 Gemini 怎麼選</small></span><em>6′</em></a><a href="#s8"><span class="no" style="--c:var(--blue)">2</span><span><strong>基本操作</strong><small>登入、開新對話、用說的、繁體設定、好指令五要素</small></span><em>10′</em></a><a href="#s12"><span class="no" style="--c:var(--green)">3</span><span><strong>好玩的原則</strong><small>能力階梯、撲克牌四種玩法、依狀況調整</small></span><em>7′</em></a><a href="#s15"><span class="no" style="--c:var(--amber)">4</span><span><strong>三個案例＋發布</strong><small>① 撲克牌×視力不好　② 老歌聊天　③ 專屬小遊戲＋分享連結</small></span><em>14′</em></a><a href="#s22"><span class="no" style="--c:var(--green)">5</span><span><strong>做教具：四種學習單</strong><small>連連看、找物品、比大小、配對：ChatGPT 與 Gemini 做法</small></span><em>8′</em></a><a href="#s26"><span class="no" style="--c:var(--amber)">6</span><span><strong>懷舊應用：時光留聲機</strong><small>陪長輩說故事，錄成唱片、印成故事書</small></span><em>6′</em></a><a href="#s28"><span class="no" style="--c:var(--sky)">7</span><span><strong>檢查與資料庫</strong><small>檢查清單、提示詞庫、更多資料庫</small></span><em>4′</em></a></nav>
   <div class="learn"><span>上完課你會：認識 AI 工具的基本操作</span><span>用有效指令產出活動設計</span><span>把 AI 用在每天的陪伴</span></div>
 </section>
 <section class="slide" data-title="先玩一下：猜歌、好味島、馬賽克">
@@ -694,7 +700,7 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <div class="box" style="flex:1"><h3>AI 給的點子（回答重點整理）</h3><ol class="res"><li><span><b>題目換成她的</b>：家常菜、宜蘭名產、她以前常去的市場。</span></li><li><span><b>不扣分</b>：答錯也給正確答案和鼓勵，沒有失敗感。</span></li><li><span><b>一題一聊</b>：答完問「這道妳都怎麼煮？」遊戲變成聊天的開頭。</span></li><li><span><b>下次換玩法</b>：同一份題目改成配對、翻牌、猜猜看，不會又是同一個。</span></li></ol><p class="tagline">每次回答都會不一樣；挑適合的，不適合就追問。</p></div>
-      <div class="note" style="--c:var(--mag)"><b>帶的時候</b><span>題目和答案你先看一次；做好後按「分享」產生連結，存在平板的書籤，下次直接開。</span></div>
+      <div class="note" style="--c:var(--mag)"><b>帶的時候</b><span>題目和答案你先看一次；做好後按「分享」發布成連結，傳給家屬或存在平板（下下頁教）。</span></div>
     </div>
   </div>
 </section>
@@ -707,11 +713,86 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
       <li data-img="img/c02_toolbar.jpg" data-cap="Gemini 寫完程式會直接顯示預覽；上方有「程式碼／預覽／匯出／分享」"><span class="n">2</span><div><b>等它寫完，看預覽</b><p>約 1～2 分鐘。上方工具列：程式碼、預覽、匯出、分享、全螢幕。</p></div></li>
       <li data-img="img/c03_full.jpg" data-cap="全螢幕預覽：兩隊計分、朗讀題目、選題清單"><span class="n">3</span><div><b>按全螢幕試玩</b><p>Gemini 常會自己加功能（截圖是加了朗讀題目和兩隊計分）。不要的功能直接說「拿掉計分」。</p></div></li>
       <li data-img="img/c04_question.jpg" data-cap="題目用大字顯示，是／否兩個大按鈕"><span class="n">4</span><div><b>逐題檢查內容</b><p>題目和答案由你把關。發現不對就說「第 3 題改成…」，它會只改那一題。</p></div></li>
-      <li data-img="img/c05_correct.jpg" data-cap="答對：彩帶動畫＋加 10 分＋一句衛教小錦囊"><span class="n">5</span><div><b>答對有鼓勵，看看成品</b><p>平板、手機打開就能玩。要帶走：按「分享」產生連結，傳到自己的 LINE 或存成書籤。</p></div></li>
+      <li data-img="img/c05_correct.jpg" data-cap="答對：彩帶動畫＋加 10 分＋一句衛教小錦囊"><span class="n">5</span><div><b>答對有鼓勵，看看成品</b><p>平板、手機打開就能玩。要帶走：按「分享」發布成連結，下一頁一步一步教。</p></div></li>
     </ol>
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
       <div class="prompt"><div class="lab">Gemini 指令・不滿意就追問<button class="copy">複製</button></div>請幫我修改：1. 字再放大一倍，按鈕至少占螢幕寬度的一半；2. 拿掉計時和扣分；3. 每題答完多一句聊天問題，例如「這道菜妳都什麼時候煮？」；4. 其他地方不要改。</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="案例③ 發布：Gemini 分享連結">
+  <div class="eyebrow" style="--c:var(--mag)"><span class="sq"></span>第四段　案例③　發布出去：分享連結</div>
+  <h2>做好的遊戲發布出去：一個連結，個案、家屬、同事都能玩</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps"><li data-img="img/ws/gem_canvas.jpg" data-cap="Canvas 右上角：程式碼／預覽、匯出、分享（＜ 形狀的圖示）"><span class="n">1</span><div><b>按 Canvas 右上角的「分享」</b><p>在預覽畫面上方，「匯出」右邊那個圖示。</p></div></li><li data-img="img/ws/gem_share.jpg" data-cap="按下去就產生公開連結，而且已經自動複製好了（11/17 實測）"><span class="n">2</span><div><b>連結已經自動複製</b><p>畫面出現 share.gemini.google 開頭的連結，直接到 LINE 貼上傳給家屬或自己。</p></div></li><li data-img="img/ws/gem_warn.jpg" data-cap="對方第一次打開：Gemini 會先提醒「這個應用程式是由他人打造」"><span class="n">3</span><div><b>對方打開，先按「繼續」</b><p>這是 Google 的安全提醒，跟家屬說：看到這個畫面按「繼續」就好。</p></div></li><li data-img="img/ws/gem_shared.jpg" data-cap="按繼續後就能玩，按鈕也能用（這是 Gemini 做的配對學習單）"><span class="n">4</span><div><b>手機、平板打開就能玩</b><p>平板用 Safari 打開，按「分享 → 加入主畫面」，下次點圖示就開。</p></div></li></ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      <div class="note" style="--c:var(--mag)"><b>發布前想一想</b><span>拿到連結的人都能打開：題目裡不要有個案姓名、照片、地址。不想分享了，到 Gemini「設定 → 你的公開連結」刪除。</span></div>
+      <div class="note" style="--c:var(--blue)"><b>ChatGPT 做的圖片</b><span>圖片或 PDF 直接傳 LINE，或存在平板的「照片」裡，打開就能用。</span></div>
+    </div>
+  </div>
+</section>
+<!-- 學習單總覽 -->
+<section class="slide" data-title="做教具：四種學習單（真的成品）">
+  <div class="eyebrow" style="--c:var(--green)"><span class="sq"></span>第四段　做教具：學習單</div>
+  <h2>四種學習單，ChatGPT、Gemini 都做得到：印出來、存 PDF、iPad 直接畫</h2>
+  <div class="wsrow">
+    <figure class="wsc" style="--c:#10A37F"><a href="img/ws/ws_matching_chatgpt.jpg" target="_blank" rel="noopener"><img src="img/ws/ws_matching_chatgpt.jpg" alt="連連看 成品" loading="lazy"></a><figcaption><b>連連看</b><span class="tool">ChatGPT 畫圖</span><a class="go" href="pdf/連連看_ChatGPT.pdf" target="_blank" rel="noopener">A4 PDF</a></figcaption></figure>
+    <figure class="wsc" style="--c:#10A37F"><a href="img/ws/ws_find_chatgpt.jpg" target="_blank" rel="noopener"><img src="img/ws/ws_find_chatgpt.jpg" alt="找物品圈起來 成品" loading="lazy"></a><figcaption><b>找物品圈起來</b><span class="tool">ChatGPT 畫圖</span><a class="go" href="pdf/找物品圈起來_ChatGPT.pdf" target="_blank" rel="noopener">A4 PDF</a></figcaption></figure>
+    <figure class="wsc" style="--c:var(--blue)"><a href="img/ws/ws_compare_gemini.jpg" target="_blank" rel="noopener"><img src="img/ws/ws_compare_gemini.jpg" alt="比大小 成品" loading="lazy"></a><figcaption><b>比大小</b><span class="tool">Gemini Canvas</span><a class="go" href="pdf/比大小_Gemini.pdf" target="_blank" rel="noopener">A4 PDF</a></figcaption></figure>
+    <figure class="wsc" style="--c:var(--blue)"><a href="img/ws/ws_pair_gemini.jpg" target="_blank" rel="noopener"><img src="img/ws/ws_pair_gemini.jpg" alt="配對圖片 成品" loading="lazy"></a><figcaption><b>配對圖片</b><span class="tool">Gemini Canvas</span><a class="go" href="pdf/配對圖片_Gemini.pdf" target="_blank" rel="noopener">A4 PDF</a></figcaption></figure>
+  </div>
+  <div class="noterow" style="--k:3">
+    <div class="note" style="--c:var(--green)"><b>印出來</b><span>A4 直式、黑白也清楚；長輩用粗的彩色筆畫線、圈起來。</span></div>
+    <div class="note" style="--c:var(--amber)"><b>存成 PDF</b><span>ChatGPT：說「做成 A4 PDF」；Gemini：按頁面上的「列印 / 存成 PDF」。</span></div>
+    <div class="note" style="--c:var(--blue)"><b>iPad 直接玩</b><span>圖片存進「照片」→「編輯」→ 筆的圖示，用手指畫線、圈起來；按「復原」就能再玩一次。</span></div>
+  </div>
+  <p class="muted" style="font-size:13px">以上四張都是 11/17 用下一頁的指令實際做出來的成品，沒有修圖。點圖片看大圖，點「A4 PDF」下載列印。</p>
+</section>
+<section class="slide" data-title="學習單 ChatGPT 做法：畫成圖片再轉 PDF">
+  <div class="eyebrow" style="--c:#10A37F"><span class="sq"></span>第四段　做教具　ChatGPT 做法</div>
+  <h2>ChatGPT 做法：請它「畫」一張學習單，再轉成 A4 PDF</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps"><li data-img="img/ws/gpt_match_chat.jpg" data-cap="chatgpt.com：貼上指令，約 1 分鐘畫好（11/17 實測）"><span class="n">1</span><div><b>貼指令，請它畫</b><p>寫清楚：A4 直式、給誰（視力不好的長輩）、內容幾題、字要大、白底。</p></div></li><li data-img="img/ws/ws_matching_chatgpt.jpg" data-cap="成品：菜市場連連看"><span class="n">2</span><div><b>逐字檢查</b><p>名稱有沒有錯字、圖跟字對不對得起來。有錯就說「把右邊第 2 個字改成…，其他不要動」。</p></div></li><li data-img="img/ws/gpt_match_pdf.jpg" data-cap="說「做成 A4 PDF」，它直接給一個 PDF，右上角下載"><span class="n">3</span><div><b>請它做成 A4 PDF</b><p>再打一句：「請把這張圖做成 A4 大小的 PDF 檔讓我下載列印」。</p></div></li><li data-img="img/ws/ws_find_chatgpt.jpg" data-cap="同一招做「找物品圈起來」：菜市場攤位插圖"><span class="n">4</span><div><b>換題目做下一張</b><p>找物品圈起來、配對、比大小都一樣做法；指令在下一頁。</p></div></li></ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame" style="background:var(--soft)"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      <div class="prompt"><div class="lab">ChatGPT 指令・連連看<button class="copy">複製</button></div>幫我畫一張 A4 直式、可以列印的「連連看」學習單圖片，給視力不好的長輩：標題「菜市場連連看」。左邊一排 5 個大大的蔬菜水果圖（高麗菜、香蕉、番茄、地瓜、西瓜），右邊一排 5 個大字名稱，順序打亂，每個圖和名稱旁邊各有一個黑色大圓點，中間留大片空白讓長輩畫線。字要非常大、黑色粗體、白底、線條清楚、不要其他裝飾。繁體中文，不要錯字。</div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="學習單 Gemini 做法：Canvas 可列印網頁">
+  <div class="eyebrow" style="--c:var(--blue)"><span class="sq"></span>第四段　做教具　Gemini 做法</div>
+  <h2>Gemini 做法：用 Canvas 做「可以一直換題目」的學習單網頁</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps"><li data-img="img/ws/gem_canvas.jpg" data-cap="Gemini Canvas 做好的學習單網頁：換一組順序、列印 / 存成 PDF"><span class="n">1</span><div><b>請 Canvas 做學習單網頁</b><p>指令加一句「有換一組題目和列印按鈕，列印時按鈕不要印出來」。</p></div></li><li data-img="img/ws/ws_compare_gemini.jpg" data-cap="按「列印 / 存成 PDF」：撲克牌比大小，剛好一張 A4"><span class="n">2</span><div><b>按列印，或存成 PDF</b><p>列印視窗裡「目的地」選「另存為 PDF」就變成檔案。</p></div></li><li data-img="img/ws/ws_compare_gemini.jpg" data-cap="第一次做第 5 題被切到下一頁；追問一句就改好"><span class="n">3</span><div><b>印不下？追問一句</b><p>實測第一次第 5 題被切掉，說「把每題縮小一點，5 題剛好一張 A4，其他不要改」就好了。</p></div></li><li data-img="img/ws/ws_pair_gemini.jpg" data-cap="同一招做「配對圖片」：電鍋、雨傘、斗笠、菜籃、茶壺"><span class="n">4</span><div><b>按「換一組」就是新的一張</b><p>每次陪伴印一張不一樣的，不怕個案背答案。</p></div></li></ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame" style="background:var(--soft)"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      <div class="prompt"><div class="lab">Gemini 指令・比大小<button class="copy">複製</button></div>請用 Canvas 幫我做一個可以列印的 A4 直式學習單網頁「撲克牌比大小」，給視力不好的長輩：最上面大標題和一行說明「圈出數字比較大的那張牌」，下面 5 題，每題左右兩張很大的撲克牌（只用 A 到 10，紅心或黑桃，用程式畫出來，數字和花色要很大），題號大字。頁面上有「換一組題目」和「列印 / 存成 PDF」兩個大按鈕，按列印時按鈕不要印出來，剛好一張 A4。白底、黑色粗框、繁體中文。</div>
+    </div>
+  </div>
+</section>
+<!-- 四種學習單指令 -->
+<section class="slide" data-title="四種學習單指令">
+  <div class="eyebrow" style="--c:var(--green)"><span class="sq"></span>第四段　做教具　指令帶回去用</div>
+  <h2>四種學習單的指令：複製、改主題，就是你的學習單</h2>
+  <div class="cols" style="--n:2">
+    <div class="prompt"><div class="lab">連連看（ChatGPT）<button class="copy">複製</button></div>幫我畫一張 A4 直式、可以列印的「連連看」學習單圖片，給視力不好的長輩：標題「菜市場連連看」。左邊一排 5 個大大的蔬菜水果圖（高麗菜、香蕉、番茄、地瓜、西瓜），右邊一排 5 個大字名稱，順序打亂，每個圖和名稱旁邊各有一個黑色大圓點，中間留大片空白讓長輩畫線。字要非常大、黑色粗體、白底、線條清楚、不要其他裝飾。繁體中文，不要錯字。</div>
+    <div class="prompt"><div class="lab">找物品圈起來（ChatGPT）<button class="copy">複製</button></div>幫我畫一張 A4 直式、可以列印的「找找看，圈起來」學習單圖片，給視力不好的長輩：上方大標題「菜市場找找看」。中間是一張熱鬧但不複雜的台灣傳統菜市場攤位插圖，畫面裡清楚放著 5 樣東西：香蕉、一條魚、一盒雞蛋、竹菜籃、傳統秤。物品要畫大、輪廓清楚、不要互相重疊。最下方一排列出這 5 樣東西的小圖和大字名稱，旁邊各有一個空白方框可以打勾。白底、線條清楚、顏色明亮，繁體中文，不要錯字。</div>
+    <div class="prompt"><div class="lab">比大小（Gemini Canvas）<button class="copy">複製</button></div>請用 Canvas 幫我做一個可以列印的 A4 直式學習單網頁「撲克牌比大小」，給視力不好的長輩：最上面大標題和一行說明「圈出數字比較大的那張牌」，下面 5 題，每題左右兩張很大的撲克牌（只用 A 到 10，紅心或黑桃，用程式畫出來，數字和花色要很大），題號大字。頁面上有「換一組題目」和「列印 / 存成 PDF」兩個大按鈕，按列印時按鈕不要印出來，剛好一張 A4。白底、黑色粗框、繁體中文。</div>
+    <div class="prompt"><div class="lab">配對圖片（Gemini Canvas）<button class="copy">複製</button></div>請用 Canvas 幫我做一個可以列印的 A4 直式學習單網頁「找一樣的：配對圖片」，給視力不好的長輩：最上面大標題和一行說明「把一樣的圖片用線連起來」。左右兩欄各 5 張大圖，畫長輩熟悉的生活用品（電鍋、雨傘、斗笠、菜籃、茶壺），用程式畫出大大的彩色圖案，右邊順序打亂；每張圖旁邊有一個黑色大圓點方便畫線。頁面上有「換一組順序」和「列印 / 存成 PDF」兩個大按鈕，列印時按鈕不要印出來，5 題剛好一張 A4。白底、黑色粗框、繁體中文。</div>
+  </div>
+  <div class="note" style="--c:var(--green)"><b>改主題</b><span>菜市場換成「廚房用品」「台灣小吃」「老家農具」；變簡單：題目少一點；變難：換成影子配對、多 2 個干擾物。</span></div>
+</section>
+<section class="slide" data-title="懷舊應用：時光留聲機">
+  <div class="eyebrow" style="--c:var(--amber)"><span class="sq"></span>第四段　懷舊應用　帶大家一起操作</div>
+  <h2>時光留聲機：陪長輩說故事，把人生錄成一張唱片</h2>
+  <div class="stepper" data-stepper>
+    <ol class="steps"><li data-img="img/lsp/1_elder.jpg" data-cap="第一次打開：輸入長輩稱呼（出生年可不填）"><span class="n">1</span><div><b>打開網頁，輸入長輩稱呼</b><p>稱呼會印在故事書封面。手機可以「加到主畫面」，下次一點就開。</p></div></li><li data-img="img/lsp/2_home.jpg" data-cap="首頁：開始聊天，或隨機抽一題"><span class="n">2</span><div><b>按「開始聊天」</b><p>不知道從哪開始，按「隨機抽一題」。</p></div></li><li data-img="img/lsp/3_topics.jpg" data-cap="七段人生：童年時光、求學青春、工作打拼、成家相伴、家鄉味道、人生智慧、留給家人"><span class="n">3</span><div><b>選一段人生，點一個問題</b><p>從他最熟悉、最開心的那段開始，例如童年、家鄉味道。</p></div></li><li data-img="img/lsp/4_consent.jpg" data-cap="錄音前，先問長輩願不願意"><span class="n">4</span><div><b>錄音前先問一聲</b><p>「我想把您說的故事錄下來，留給家裡的孩子聽，好不好？」長輩答應了再錄。</p></div></li><li data-img="img/lsp/5_record.jpg" data-cap="唸題目、按開始錄音；下面有追問小卡和陪伴小提醒"><span class="n">5</span><div><b>慢慢問，用追問小卡接話</b><p>長輩停下來就點一張追問小卡；記錯不糾正、沉默先等十秒，一次 10～20 分鐘。</p></div></li><li data-img="img/lsp/6_label.jpg" data-cap="說完了：寫故事名稱、年代、重點，配一張老照片"><span class="n">6</span><div><b>替這張唱片寫標籤</b><p>只有名稱是必要的；配一張老照片，會印在唱片中間。</p></div></li><li data-img="img/lsp/7_book.jpg" data-cap="故事書：列印生命故事書、下載備份"><span class="n">7</span><div><b>印成生命故事書送家人</b><p>所有唱片整理成一本書，可以列印或存成 PDF；換手機前先「下載備份」。</p></div></li></ol>
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
+      <div class="note" style="--c:var(--amber)"><b>為什麼用懷舊</b><span>聊自己的人生，長輩最有共鳴、最想說；錄下來的聲音和故事，是留給家人的記憶。</span></div>
+      <div class="note" style="--c:var(--blue)"><b>打開網頁</b><span><a class="go" href="https://mattsue1003.github.io/life-story-phonograph/" target="_blank" rel="noopener">mattsue1003.github.io/life-story-phonograph ↗</a>　聲音只存在這台裝置，不會上傳。</span></div>
     </div>
   </div>
 </section>
@@ -769,6 +850,12 @@ a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-
       <div class="note" style="--c:var(--lime)"><b>勾選</b><span>打勾會記在這台電腦的瀏覽器裡，下次打開還在。</span></div>
     </div>
   </div>
+</section>
+<!-- 資料庫 -->
+<section class="slide" data-title="更多資料庫：帶回去慢慢用">
+  <div class="eyebrow" style="--c:var(--sky)"><span class="sq"></span>帶回去用　資料庫</div>
+  <h2>更多資料庫：聽歌、猜圖、認識鳥蟲花、聊天、團康</h2>
+  <div class="exgrid" style="--m:5"><a class="ex" href="https://mattsue1003.github.io/oldsongdata/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/oldsongdata.jpg" alt="懷舊點唱機：回憶金曲 200 畫面" loading="lazy"></div><div class="row"><span><b>懷舊點唱機：回憶金曲 200</b><small>依年代找長輩年輕時的歌，一起聽</small></span><img class="q" src="img/qr/oldsongdata.svg" alt="懷舊點唱機：回憶金曲 200 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/oldpicguess/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/oldpicguess.jpg" alt="看照片猜藝人 畫面" loading="lazy"></div><div class="row"><span><b>看照片猜藝人</b><small>臺灣資深藝人老照片，猜猜是誰</small></span><img class="q" src="img/qr/oldpicguess.svg" alt="看照片猜藝人 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/bird-guess-quiz/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/bird-guess-quiz.jpg" alt="猜猜我是誰：台灣鳥朋友 畫面" loading="lazy"></div><div class="row"><span><b>猜猜我是誰：台灣鳥朋友</b><small>一步一步給提示，還有真實鳥叫聲</small></span><img class="q" src="img/qr/bird-guess-quiz.svg" alt="猜猜我是誰：台灣鳥朋友 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/insect-guess-quiz/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/insect-guess-quiz.jpg" alt="猜猜我是誰：台灣昆蟲朋友 畫面" loading="lazy"></div><div class="row"><span><b>猜猜我是誰：台灣昆蟲朋友</b><small>看特徵猜昆蟲，附影片</small></span><img class="q" src="img/qr/insect-guess-quiz.svg" alt="猜猜我是誰：台灣昆蟲朋友 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/flower-guess-quiz/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/flower-guess-quiz.jpg" alt="猜猜我是什麼花 畫面" loading="lazy"></div><div class="row"><span><b>猜猜我是什麼花</b><small>台灣四季花朋友，分段提示猜花</small></span><img class="q" src="img/qr/flower-guess-quiz.svg" alt="猜猜我是什麼花 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/home-chat-db/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/home-chat-db.jpg" alt="居家陪伴聊天庫 畫面" loading="lazy"></div><div class="row"><span><b>居家陪伴聊天庫</b><small>36 主題懷舊聊天題，附接話範例</small></span><img class="q" src="img/qr/home-chat-db.svg" alt="居家陪伴聊天庫 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/home-chat-local/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/home-chat-local.jpg" alt="居家聊天在地篇 畫面" loading="lazy"></div><div class="row"><span><b>居家聊天在地篇</b><small>依身分背景、家鄉找話題</small></span><img class="q" src="img/qr/home-chat-local.svg" alt="居家聊天在地篇 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/group-building-games/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/group-building-games.jpg" alt="團康活動影片資料庫 畫面" loading="lazy"></div><div class="row"><span><b>團康活動影片資料庫</b><small>破冰、合作、律動，看影片就會帶</small></span><img class="q" src="img/qr/group-building-games.svg" alt="團康活動影片資料庫 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/japan-dayservice-activity-videos/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/japan-dayservice-activity-videos.jpg" alt="日照團康影片資料庫 畫面" loading="lazy"></div><div class="row"><span><b>日照團康影片資料庫</b><small>日本日照中心團康與體操，中文整理</small></span><img class="q" src="img/qr/japan-dayservice-activity-videos.svg" alt="日照團康影片資料庫 QR code"></div></a><a class="ex" href="https://mattsue1003.github.io/life-story-phonograph/" target="_blank" rel="noopener"><div class="ph"><img src="img/ex/life-story-phonograph.jpg" alt="時光留聲機 畫面" loading="lazy"></div><div class="row"><span><b>時光留聲機</b><small>陪長輩說故事，錄成唱片和故事書</small></span><img class="q" src="img/qr/life-story-phonograph.svg" alt="時光留聲機 QR code"></div></a></div>
 </section>
 <section class="slide cover" data-title="謝謝聆聽">
   <div class="confetti" aria-hidden="true">
