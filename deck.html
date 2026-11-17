@@ -342,6 +342,7 @@ td.num{font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular
 .case .res li::before{counter-increment:r;content:counter(r);width:26px;height:26px;border-radius:7px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px;margin-top:1px}
 .case .tagline{font-size:13px;color:var(--muted)}
 .noterow{display:grid;grid-template-columns:repeat(var(--k),minmax(0,1fr));gap:14px}
+a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}a.go:hover{color:var(--ink)}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
 .pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
@@ -483,10 +484,10 @@ td.num{font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular
   <div class="eyebrow" style="--c:var(--ink)"><span class="sq"></span>今天只用兩個工具</div>
   <h2>ChatGPT 和 Gemini：免費版就能用，各有拿手的事</h2>
   <div class="two">
-    <div class="box" style="--c:#10A37F"><h3>ChatGPT</h3><span class="sub">chatgpt.com・手機 App「ChatGPT」</span>
+    <div class="box" style="--c:#10A37F"><h3>ChatGPT</h3><span class="sub"><a class="go" href="https://chatgpt.com/" target="_blank" rel="noopener">chatgpt.com ↗</a>・手機 App「ChatGPT」</span>
       <ul class="bio" style="font-size:17px;gap:8px"><li><b>想點子、改玩法</b>：講話很像在跟同事討論</li><li><b>做圖</b>：大字牌卡、海報、學習單</li><li><b>出檔案</b>：Word、PDF 直接下載列印</li></ul>
       <p class="ai3-today" style="margin-top:auto"><b>今天做</b>案例①：撲克牌改玩法＋大字牌卡</p></div>
-    <div class="box" style="--c:var(--blue)"><h3>Gemini</h3><span class="sub">gemini.google.com・手機 App「Gemini」</span>
+    <div class="box" style="--c:var(--blue)"><h3>Gemini</h3><span class="sub"><a class="go" href="https://gemini.google.com/" target="_blank" rel="noopener">gemini.google.com ↗</a>・手機 App「Gemini」</span>
       <ul class="bio" style="font-size:17px;gap:8px"><li><b>看得懂 YouTube</b>：老歌、影片整理成聊天題目</li><li><b>Canvas 做小遊戲</b>：講清楚玩法，做出能點的遊戲</li><li><b>用 Google 帳號就能登入</b></li></ul>
       <p class="ai3-today" style="margin-top:auto"><b>今天做</b>案例②：老歌聊天；案例③：專屬小遊戲</p></div>
   </div>
@@ -498,9 +499,9 @@ td.num{font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular
   <h2>打開、登入、開新對話：三分鐘就能開始</h2>
   <div class="two">
     <div class="box" style="--c:#10A37F"><h3>ChatGPT</h3>
-      <ol class="ol"><li>電腦打開 <b>chatgpt.com</b>；手機下載「ChatGPT」App</li><li>按「登入」，用 Google 帳號或 Email 登入</li><li>左上角「新聊天」：每個活動開一個新對話</li><li>下方輸入框打字，按 Enter 或↑送出</li><li>左邊清單是以前的對話，可以回頭找</li></ol></div>
+      <ol class="ol"><li>電腦打開 <a class="go" href="https://chatgpt.com/" target="_blank" rel="noopener"><b>chatgpt.com</b> ↗</a>；手機下載「ChatGPT」App</li><li>按「登入」，用 Google 帳號或 Email 登入</li><li>左上角「新聊天」：每個活動開一個新對話</li><li>下方輸入框打字，按 Enter 或↑送出</li><li>左邊清單是以前的對話，可以回頭找</li></ol></div>
     <div class="box" style="--c:var(--blue)"><h3>Gemini</h3>
-      <ol class="ol"><li>電腦打開 <b>gemini.google.com</b>；手機下載「Gemini」App</li><li>用 Google 帳號登入（有 Gmail 就有）</li><li>左上角「發起新對話」</li><li>輸入框旁的「+」可以上傳照片、檔案</li><li>做小遊戲時，在工具裡選「Canvas」</li></ol></div>
+      <ol class="ol"><li>電腦打開 <a class="go" href="https://gemini.google.com/" target="_blank" rel="noopener"><b>gemini.google.com</b> ↗</a>；手機下載「Gemini」App</li><li>用 Google 帳號登入（有 Gmail 就有）</li><li>左上角「發起新對話」</li><li>輸入框旁的「+」可以上傳照片、檔案</li><li>做小遊戲時，在工具裡選「Canvas」</li></ol></div>
   </div>
   <div class="noterow" style="--k:3">
     <div class="note" style="--c:var(--blue)"><b>一個活動一個對話</b><span>不同個案分開問，答案才不會混在一起。</span></div>
@@ -530,16 +531,16 @@ td.num{font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular
   <h2>語音轉出來是簡體字？這樣設定成繁體中文</h2>
   <div class="stepper" data-stepper>
     <ol class="steps">
-      <li data-img="img/v05_gpt_voiceset.jpg" data-cap="ChatGPT：左下角頭像 → 設定 → 聲音 → 語言"><span class="n">1</span><div><b>ChatGPT：聲音的「語言」選「國語」</b><p>左下角頭像 → 設定 → 聲音 → 語言。不要用「自動偵測」，比較不會被認成其他語言。</p></div></li>
+      <li data-img="img/v05_gpt_voiceset.jpg" data-cap="ChatGPT：左下角頭像 → 設定 → 聲音 → 語言"><span class="n">1</span><div><b>ChatGPT：聲音的「語言」選「國語」</b><p><a class="go" href="https://chatgpt.com/#settings/Speech" target="_blank" rel="noopener">打開 ChatGPT ↗</a>：左下角頭像 → 設定 → 聲音 → 語言。不要用「自動偵測」，比較不會被認成其他語言。</p></div></li>
       <li data-img="img/v06_gpt_lang.jpg" data-cap="下拉選單第一個是「自動偵測」，往下找到「國語」"><span class="n">2</span><div><b>在清單裡找到「國語」</b><p>清單很長，可以直接滑到「國語」。介面語言在「一般 → 語言」，選中文（台灣）。</p></div></li>
-      <li data-img="img/v07_gpt_custom.jpg" data-cap="ChatGPT：設定 → 個人化 → 自訂指示 → ChatGPT"><span class="n">3</span><div><b>ChatGPT：自訂指示寫一句話</b><p>個人化 → 自訂指示 → ChatGPT，貼上下方那句。之後每個對話都會照做。</p></div></li>
-      <li data-img="img/v08_google_lang.jpg" data-cap="myaccount.google.com/language：偏好語言「繁體中文　台灣」"><span class="n">4</span><div><b>Gemini：Google 帳戶語言設成繁體中文（台灣）</b><p>網址 myaccount.google.com/language → 偏好語言按鉛筆 → 選「繁體中文　台灣」。Gemini 的語音輸入跟著這個設定。</p></div></li>
-      <li data-img="img/v09_gem_personal.jpg" data-cap="Gemini：左下齒輪 → 個人化智慧服務 → 給 Gemini 的指令"><span class="n">5</span><div><b>Gemini：「給 Gemini 的指令」也寫一句</b><p>左下齒輪 → 個人化智慧服務 → 給 Gemini 的指令，貼上同一句話。</p></div></li>
+      <li data-img="img/v07_gpt_custom.jpg" data-cap="ChatGPT：設定 → 個人化 → 自訂指示 → ChatGPT"><span class="n">3</span><div><b>ChatGPT：自訂指示寫一句話</b><p><a class="go" href="https://chatgpt.com/#settings/Personalization" target="_blank" rel="noopener">打開 ChatGPT 個人化 ↗</a>：個人化 → 自訂指示 → ChatGPT，貼上下方那句。之後每個對話都會照做。</p></div></li>
+      <li data-img="img/v08_google_lang.jpg" data-cap="myaccount.google.com/language：偏好語言「繁體中文　台灣」"><span class="n">4</span><div><b>Gemini：Google 帳戶語言設成繁體中文（台灣）</b><p>網址 <a class="go" href="https://myaccount.google.com/language" target="_blank" rel="noopener">myaccount.google.com/language ↗</a> → 偏好語言按鉛筆 → 選「繁體中文　台灣」。Gemini 的語音輸入跟著這個設定。</p></div></li>
+      <li data-img="img/v09_gem_personal.jpg" data-cap="Gemini：左下齒輪 → 個人化智慧服務 → 給 Gemini 的指令"><span class="n">5</span><div><b>Gemini：「給 Gemini 的指令」也寫一句</b><p><a class="go" href="https://gemini.google.com/" target="_blank" rel="noopener">打開 Gemini ↗</a>：左下齒輪 → 個人化智慧服務 → 給 Gemini 的指令，貼上同一句話。</p></div></li>
     </ol>
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <figure class="shot" style="flex:1"><div class="stepbar"></div><div class="frame"><img alt=""></div><figcaption><span class="cap"></span><span class="hint">↓ 下一步</span></figcaption></figure>
       <div class="prompt"><div class="lab">自訂指示（ChatGPT、Gemini 都貼）<button class="copy">複製</button></div>請一律使用繁體中文（台灣用語）回覆，包含語音聽寫整理出來的文字；不要使用簡體字。</div>
-      <div class="note" style="--c:var(--blue)"><b>手機</b><span>iPhone、Android 的鍵盤加「注音」，按注音鍵盤上的麥克風說話，轉出來就是繁體。已經出現簡體：說「請把上面轉成繁體中文，內容不要改」。</span></div>
+      <div class="note" style="--c:var(--blue)"><b>兩個小撇步</b><span><b>① 手機用說的：</b>手機的「設定」裡加一個「注音」鍵盤，要輸入時切換到注音鍵盤，按鍵盤上的麥克風說話，打出來的字就是繁體中文。<br><b>② AI 回答變成簡體字：</b>直接再打一句「請把上面轉成繁體中文，內容不要改」，它就會改回來。</span></div>
     </div>
   </div>
 </section>

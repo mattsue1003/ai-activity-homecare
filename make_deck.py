@@ -54,6 +54,7 @@ css = """
 .case .res li::before{counter-increment:r;content:counter(r);width:26px;height:26px;border-radius:7px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px;margin-top:1px}
 .case .tagline{font-size:13px;color:var(--muted)}
 .noterow{display:grid;grid-template-columns:repeat(var(--k),minmax(0,1fr));gap:14px}
+a.go{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}a.go:hover{color:var(--ink)}
 .case .note{flex:none!important}.case .cols>div>.box{flex:1}
 .pain{max-height:430px}
 @media (max-width:900px){.noterow,.pain,.can,.two,.formula{grid-template-columns:minmax(0,1fr);max-height:none}}
@@ -192,7 +193,9 @@ S.append(keep("實作① 不用安裝：ChatGPT、Gemini 的麥克風",
     ("最接近 Typeless 的用法。", "在個案家門口、在車上想到點子，講完就送出。"),
     new_title="基本操作② 按麥克風用說的"))
 S.append(keep("語音轉文字設定成繁體中文",
-    ("實作①　避免出現簡體字", "基本操作②　避免出現簡體字")))
+    ("實作①　避免出現簡體字", "基本操作②　避免出現簡體字"),
+    ('<b>手機</b><span>iPhone、Android 的鍵盤加「注音」，按注音鍵盤上的麥克風說話，轉出來就是繁體。已經出現簡體：說「請把上面轉成繁體中文，內容不要改」。</span>',
+     '<b>兩個小撇步</b><span><b>① 手機用說的：</b>手機的「設定」裡加一個「注音」鍵盤，要輸入時切換到注音鍵盤，按鍵盤上的麥克風說話，打出來的字就是繁體中文。<br><b>② AI 回答變成簡體字：</b>直接再打一句「請把上面轉成繁體中文，內容不要改」，它就會改回來。</span>')))
 
 # 11 好指令公式
 S.append(f'''<!-- 好指令 -->
@@ -463,6 +466,23 @@ S[S.index("@@AGENDA@@")] = f'''<!-- 地圖 -->
 '''
 
 out = head + "".join(S) + tail
+
+# 網址都做成可以點的連結（開新分頁）
+def A(url, text):
+    return f'<a class="go" href="{url}" target="_blank" rel="noopener">{text} ↗</a>'
+LINKS = [
+    ('<p>網址 myaccount.google.com/language → ', '<p>網址 ' + A("https://myaccount.google.com/language", "myaccount.google.com/language") + ' → '),
+    ('<span class="sub">chatgpt.com・', '<span class="sub">' + A("https://chatgpt.com/", "chatgpt.com") + '・'),
+    ('<span class="sub">gemini.google.com・', '<span class="sub">' + A("https://gemini.google.com/", "gemini.google.com") + '・'),
+    ('電腦打開 <b>chatgpt.com</b>', '電腦打開 ' + A("https://chatgpt.com/", "<b>chatgpt.com</b>")),
+    ('電腦打開 <b>gemini.google.com</b>', '電腦打開 ' + A("https://gemini.google.com/", "<b>gemini.google.com</b>")),
+    ('<p>左下角頭像 → 設定 → 聲音 → 語言。', '<p>' + A("https://chatgpt.com/#settings/Speech", "打開 ChatGPT") + '：左下角頭像 → 設定 → 聲音 → 語言。'),
+    ('<p>個人化 → 自訂指示 → ChatGPT，', '<p>' + A("https://chatgpt.com/#settings/Personalization", "打開 ChatGPT 個人化") + '：個人化 → 自訂指示 → ChatGPT，'),
+    ('<p>左下齒輪 → 個人化智慧服務 → 給 Gemini 的指令，', '<p>' + A("https://gemini.google.com/", "打開 Gemini") + '：左下齒輪 → 個人化智慧服務 → 給 Gemini 的指令，'),
+]
+for a, b in LINKS:
+    assert a in out, a
+    out = out.replace(a, b)
 assert "intergen-ai-play" not in out, [out[m.start()-80:m.start()+40] for m in re.finditer("intergen-ai-play", out)][:3]
 (ROOT / "deck.html").write_text(out)
 print("slides:", len(S))
